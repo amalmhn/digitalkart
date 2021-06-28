@@ -1,60 +1,144 @@
-import React from 'react'
+import React, { useState,useContext } from 'react'
 import './Signup.css'
 import Logo from '../../Assets/DigitalKartLogo.jpeg'
+import { FirebaseContext } from '../../Store/FirebaseContext'
+import {useHistory} from 'react-router-dom';
 
 function Signup() {
+
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [password, setPassword] = useState('')
+  
+  const [error, setError] = useState('')
+
+  const [userError, setUserError] = useState('')
+  const [phoneError, setPhoneError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+  const [valid, setValid] = useState('')
+
+  const {firebase} = useContext(FirebaseContext)
+
+  const history = useHistory()
+
+  const handleSubmit=(e)=>{
+    e.preventDefault()
+
+    var usernameRegex = /^[a-zA-Z0-9]{5,}$/
+    var phoneRegex = /^[0-9]{10}$/
+    var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/
+    
+    if((username=="")||(usernameRegex.test(username)===false)){
+      setUserError("Username must be 5 characters and without special characters(!@#$%)");
+      var error = true;
+  }
+  if((phone=="")||(phoneRegex.test(phone)===false)){
+    setPhoneError("Phone number should be 10 digits");
+    var error = true;
+}
+if((password=="")||(passwordRegex.test(password)===false)){
+  setPasswordError("Password should be minimum six characters, one letter, one number and one special character");
+  var error = true;
+}
+
+if(error==true){
+  setValid("Invalid Form!")
+  setInterval(function(){ window.location.reload() }, 3000);
+}else{
+  firebase.auth().createUserWithEmailAndPassword(email,password).then((result)=>{
+    // console.log(result)
+    result.user.updateProfile({displayName:username}).then(()=>{
+      firebase.firestore().collection('users').add({
+        id:result.user.uid,
+        username:username,
+        phone:phone
+      }).then(()=>{
+        history.push("/login")
+      })
+    })
+  }).catch((error) => {
+    console.error(error.message);
+    setError(error.message)
+    setInterval(function(){ window.location.reload() }, 3000);
+});
+}
+
+    
+
+  }
     return (
         <div>
       <div className="signupParentDiv">
-        <img width="200px" height="200px" style={{marginLeft:'25px'}} src={Logo} alt="Logo"></img>
-        <form>
+        <img width="200px" height="200px" style={{marginLeft:'25px'}}  alt="Logo"></img>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="fname">Username</label>
           <br />
           <input
             className="input"
             type="text"
-            id="fname"
+            value={username}
+            onChange={(e)=>{setUsername(e.target.value)}}
+            id="uname"
             name="name"
-            
+            required
           />
           <br />
+          <span className="errorSpan">{userError}</span>
+          <br/>
           <label htmlFor="fname">Email</label>
           <br />
           <input
             className="input"
             type="email"
-            id="fname"
+            value={email}
+            onChange={(e)=>{setEmail(e.target.value)}}
+            id="mail"
             name="email"
-           
+            required
           />
           <br />
-          <label htmlFor="lname">Phone</label>
+          <br/>
+          <label htmlFor="lname">Phone Number</label>
           <br />
           <input
             className="input"
             type="number"
-            id="lname"
+            value={phone}
+            onChange={(e)=>{setPhone(e.target.value)}}
+            id="num"
             name="phone"
-            
+            required
           />
           <br />
+          <span className="errorSpan">{phoneError}</span>
+          <br/>
           <label htmlFor="lname">Password</label>
           <br />
           <input
             className="input"
             type="password"
-            id="lname"
+            value={password}
+            onChange={(e)=>{setPassword(e.target.value)}}
+            id="pwd"
             name="password"
-            
+            required
           />
           <br />
+          <span className="errorSpan">{passwordError}</span>
+          <br/>
           <br />
           <button className="btn btn-success">Signup</button>
         </form>
         
         <span className="existing">Existing User?</span><br/>
-        <span className="loginLink">Login</span>
-        
+        <span className="loginLink"> <strong> Login</strong> </span>
+        <br/>
+        <span className="errorSpan">{valid}</span>
+      </div>
+      <div className="catchErrorDiv">
+      <span>{error}</span>
+      
       </div>
     </div>
     )

@@ -43,3 +43,13 @@
   .signup{
       margin-left: 100px;
   }
+
+  .validSpan{
+    color: red;
+    
+  }
+
+  .spanDiv{
+    margin-top: 500px;
+    margin-left: 500px;
+  }

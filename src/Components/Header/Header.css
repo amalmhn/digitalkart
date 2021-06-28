@@ -79,27 +79,8 @@
   .loginPage a{
     text-decoration: none;
   }
+
   
-  .sellMenu {
-    position: relative;
-    cursor: pointer;
-  }
-  
-  .sellMenu .all {
-    fill: white;
-  }
-  
-  .sellMenu .top {
-    fill: #23e5db;
-  }
-  
-  .sellMenu .left {
-    fill: #ffce32;
-  }
-  
-  .sellMenu .right {
-    fill: #3a77ff;
-  }
   .sellMenu .sellMenuContent {
     display: flex;
     position: absolute;
@@ -119,11 +100,17 @@
     margin-left: 5px;
   }
   
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 1200px) {
     
     .productSearch{
-        width: 36%;
+        width: 23%;
     }
+
+    .logoDiv{
+      width : 90px;
+      
+    }
+
     
   }
 
@@ -136,3 +123,14 @@
   .sellMenu{
       margin-right: 10px;
   }
+
+  .logoDiv{
+    height: 90px
+  }
+
+  .logoutSpan:hover{
+    color: blue;
+    cursor: pointer;
+  }
+
+ 

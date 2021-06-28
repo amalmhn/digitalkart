@@ -43,3 +43,17 @@
   .loginLink{
       margin-left: 110px;
   }
+
+.catchErrorDiv{
+    margin-top: 530px; 
+    margin-left: 190px; 
+    color: red;
+  }
+
+  .errorSpan{
+    color: red;
+  }
+
+  .noErrorSpan{
+    color:green
+  }

@@ -6,10 +6,12 @@ function Posts() {
         <div className="postParentDiv">
       <div className="moreView">
         <div className="heading">
-          <span>Quick Menu</span>
-          <span>View more</span>
+          <span>Product Menu</span>
+          
         </div>
         <div className="cards">
+          <div className="row">
+            <div className="col-md-3">
           <div
             className="card"
           >
@@ -25,6 +27,10 @@ function Posts() {
             <div className="date">
               <span>Tue May 04 2021</span>
             </div>
+          </div>
+          
+          </div>
+          
           </div>
         </div>
       </div>

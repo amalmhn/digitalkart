@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Header.css';
 import Logo from '../../Assets/DigitalKartLogo.jpeg'
+import { AuthContext } from '../../Store/AuthContext';
+import { FirebaseContext } from '../../Store/FirebaseContext';
+import { useHistory } from 'react-router-dom';
 
 function Header() {
 
+  const {user} = useContext(AuthContext);
+  const {firebase} = useContext(FirebaseContext)
+
+  const history = useHistory()
 
   return (
     <div className="headerParentDiv">
       <div className="headerChildDiv">
         <div>
-          <img src={Logo} style={{height:'90px'}} alt="DigitalKart-Logo"/>
+          <img className="logoDiv" src={Logo} alt="DigitalKart-Logo"/>
         </div>
         
         <div className="productSearch">
@@ -25,13 +32,25 @@ function Header() {
         </div>
         
         <div className="loginPage">
-          <span>Signup/Login</span>
+          <span>{user?`Welcome ${user.displayName}`:"Signup/Login"}</span>
           <hr />
+        </div>
+          {user && <span className="logoutSpan"
+           onClick={()=>{
+            firebase.auth().signOut();
+            history.push("/login")
+          }} >
+            Logout</span>}
+          
+        <div className="loginPage">
+          <button className="btn btn-warning">
+          <span>Cart <span style={{color:'red'}}> <strong> 1 </strong> </span> </span>
+          </button>
         </div>
 
         <div className="sellMenu">
           
-        <button class="btn btn-success">Order</button>
+        <button className="btn btn-success">My Orders</button>
           
         </div>
       </div>
