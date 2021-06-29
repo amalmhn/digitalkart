@@ -32,10 +32,10 @@ function Posts() {
         </div>
         <div className="cards">
           <div className="row">
-            {products.map((product)=>{
+            {products.map((product,index)=>{
               return(
-                <div className="col-md-3">
-          <div
+                <div key={index} className="col-md-3">
+          <div            
             className="card"
                 onClick={()=>{
                   setPostDetails(product)

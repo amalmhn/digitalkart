@@ -20,7 +20,7 @@ function Banner() {
             <span>Smartphones</span>
             <span>Laptops</span>
             <span>Smartwatches</span>
-            {user && user.uid=="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <button className="btn btn-primary">Admin Page</button> : ""}
+            {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <button className="btn btn-primary">Admin Page</button> : ""}
             
           </div>
         </div>
