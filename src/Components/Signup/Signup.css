@@ -3,7 +3,7 @@
     width: max-content;
     padding: 10px;
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 6px;
@@ -41,7 +41,7 @@
   }
 
   .loginLink{
-      margin-left: 110px;
+      margin-left: 10px;
   }
 
 .catchErrorDiv{
@@ -56,4 +56,12 @@
 
   .noErrorSpan{
     color:green
+  }
+
+  .linkSignup{
+    text-decoration: none;
+    color: blue;
+  }
+  .linkSignup:hover{
+    color: black;
   }

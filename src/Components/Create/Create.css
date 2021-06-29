@@ -39,3 +39,7 @@
   .categorySelect{
     width: 260px;
   }
+
+  .errorSpan{
+    color: red;
+  }

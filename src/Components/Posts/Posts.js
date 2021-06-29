@@ -1,7 +1,28 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useContext, useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { PostContext } from '../../Store/PostContext'
 import './Posts.css'
 
 function Posts() {
+
+  const [products, setProducts] = useState([])
+  const {setPostDetails} = useContext(PostContext)
+  const history = useHistory()
+  
+  useEffect(() => {
+    axios.get("https://firestore.googleapis.com/v1/projects/digitalkart-1785a/databases/(default)/documents/products/").then((res)=>{
+      // console.log(res.data.documents)
+      const allPost= res.data.documents.map((product)=>{
+        
+        return{
+          ...product,id:product.name.substr(66)
+        }
+      })
+      setProducts(allPost)
+    })
+  }, [])
+
     return (
         <div className="postParentDiv">
       <div className="moreView">
@@ -11,50 +32,39 @@ function Posts() {
         </div>
         <div className="cards">
           <div className="row">
-            <div className="col-md-3">
+            {products.map((product)=>{
+              return(
+                <div className="col-md-3">
           <div
             className="card"
+                onClick={()=>{
+                  setPostDetails(product)
+                  history.push('/view')
+                }}
           >
             
             <div className="image">
-              <img  src="https://imgk.timesnownews.com/story/FZX_lead.png" alt="" />
+              <img  src={product.fields.url.stringValue} alt="" />
             </div>
             <div className="content">
-              <p className="rate">&#x20B9; 250000</p>
-              <span className="kilometer">Two Wheeler</span>
-              <p className="name"> YAMAHA R15V3</p>
+              <p className="rate">{product.fields.name.stringValue}</p>
+              <span className="kilometer">&#x20B9;{product.fields.price.stringValue}</span>
+              <p className="name">{product.fields.brand.stringValue}</p>
             </div>
             <div className="date">
-              <span>Tue May 04 2021</span>
+              <span> <strong> Posted On :</strong> {product.fields.createdAt.stringValue}</span>
             </div>
           </div>
           
           </div>
-          
-          </div>
-        </div>
-      </div>
-      <div className="recommendations">
-        <div className="heading">
-          <span>Fresh recommendations</span>
-        </div>
-        <div className="cards">
-          <div className="card">
+              )
+            })}
             
-            <div className="image">
-              <img src="https://imgk.timesnownews.com/story/FZX_lead.png?tr=w-1200,h-900" alt="" />
-            </div>
-            <div className="content">
-              <p className="rate">&#x20B9; 250000</p>
-              <span className="kilometer">Two Wheeler</span>
-              <p className="name"> YAMAHA R15V3</p>
-            </div>
-            <div className="date">
-              <span>10/5/2021</span>
-            </div>
+          
           </div>
         </div>
       </div>
+      
     </div>
     )
 }

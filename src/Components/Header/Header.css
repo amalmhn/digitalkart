@@ -124,6 +124,11 @@
       margin-right: 10px;
   }
 
+  .sellMenu:hover{
+    color: blue;
+    cursor: pointer;
+  }
+
   .logoDiv{
     height: 90px
   }
@@ -133,4 +138,21 @@
     cursor: pointer;
   }
 
- 
+  .loginPage{
+    margin-right: 15px;
+    
+  }
+
+  .loginPage:hover{
+    cursor: pointer;
+    color: blue;
+  }
+
+ .linkComponent{
+   text-decoration: none;
+   color: black;
+ }
+
+ .linkComponent:hover{
+   color: blue;
+ }

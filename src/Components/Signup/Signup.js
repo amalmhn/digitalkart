@@ -2,7 +2,7 @@ import React, { useState,useContext } from 'react'
 import './Signup.css'
 import Logo from '../../Assets/DigitalKartLogo.jpeg'
 import { FirebaseContext } from '../../Store/FirebaseContext'
-import {useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
 function Signup() {
 
@@ -29,21 +29,21 @@ function Signup() {
     var phoneRegex = /^[0-9]{10}$/
     var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/
     
-    if((username=="")||(usernameRegex.test(username)===false)){
+    if((username==="")||(usernameRegex.test(username)===false)){
       setUserError("Username must be 5 characters and without special characters(!@#$%)");
       var error = true;
   }
-  if((phone=="")||(phoneRegex.test(phone)===false)){
+  if((phone==="")||(phoneRegex.test(phone)===false)){
     setPhoneError("Phone number should be 10 digits");
-    var error = true;
+    var phoneError1 = true;
 }
-if((password=="")||(passwordRegex.test(password)===false)){
+if((password==="")||(passwordRegex.test(password)===false)){
   setPasswordError("Password should be minimum six characters, one letter, one number and one special character");
-  var error = true;
+  var passwordError1 = true;
 }
 
-if(error==true){
-  setValid("Invalid Form!")
+if(error===true || phoneError1===true || passwordError1===true){
+  setValid("Invalid Details!")
   setInterval(function(){ window.location.reload() }, 3000);
 }else{
   firebase.auth().createUserWithEmailAndPassword(email,password).then((result)=>{
@@ -70,7 +70,9 @@ if(error==true){
     return (
         <div>
       <div className="signupParentDiv">
-        <img width="200px" height="200px" style={{marginLeft:'25px'}}  alt="Logo"></img>
+        <Link to="/">
+        <img width="200px" height="200px" style={{marginLeft:'1px'}} src={Logo} alt="Logo"></img>
+        </Link>
         <form onSubmit={handleSubmit}>
           <label htmlFor="fname">Username</label>
           <br />
@@ -132,7 +134,9 @@ if(error==true){
         </form>
         
         <span className="existing">Existing User?</span><br/>
+        <Link to="/login" className="linkSignup">
         <span className="loginLink"> <strong> Login</strong> </span>
+        </Link>
         <br/>
         <span className="errorSpan">{valid}</span>
       </div>

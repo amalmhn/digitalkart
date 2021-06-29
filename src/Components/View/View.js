@@ -1,27 +1,42 @@
-import React from 'react'
+import React,{useContext} from 'react'
+import { Link } from 'react-router-dom'
+import { AuthContext } from '../../Store/AuthContext'
+import { PostContext } from '../../Store/PostContext'
 import './View.css'
 
 function View() {
+
+  const {postDetails} = useContext(PostContext)
+  const {user} = useContext(AuthContext)
+
+  
     return (
         <div className="viewParentDiv">
       <div className="imageShowDiv">
+        <br/><br/>
         <img
-          src="https://imgk.timesnownews.com/story/FZX_lead.png?tr=w-1200,h-900"
-          alt=""
+          src={postDetails.fields.url.stringValue}
+          alt="product"
         />
       </div>
       <div className="rightSection">
         <div className="productDetails">
-          <p>&#x20B9; 250000 </p>
-          <span>YAMAHA R15V3</span>
-          <p>Two Wheeler</p>
-          <span>Tue May 04 2021</span>
+          <p>{postDetails.fields.name.stringValue} </p>
+          <span>Price : &#x20B9;{postDetails.fields.price.stringValue}</span> <br/>
+          <span>Color : {postDetails.fields.ram.stringValue}</span><br/>
+          <span>Memory : {postDetails.fields.memory.stringValue}</span><br/>
+          <span>Brand : {postDetails.fields.brand.stringValue}</span><br/>
+          <span>Category : {postDetails.fields.category.stringValue}</span><br/>
+          <span>Description :- {postDetails.fields.description.stringValue}</span><br/>
+
         </div>
-        <div className="contactDetails">
-          <p>Seller details</p>
-          <p>No name</p>
-          <p>1234567890</p>
-        </div>
+        {user ?
+        <Link to="/">
+        <button className="btn btn-success cartBtn">Add to cart</button>
+        </Link> :
+        <Link to="/login">
+        <button className="btn btn-primary cartBtn">Please login to place the order</button>
+        </Link>}
       </div>
     </div>
     )

@@ -41,7 +41,7 @@
   }
 
   .signup{
-      margin-left: 100px;
+      margin-left: 10px;
   }
 
   .validSpan{
@@ -52,4 +52,13 @@
   .spanDiv{
     margin-top: 500px;
     margin-left: 500px;
+  }
+
+  .linkLogin{
+    text-decoration: none;
+    color: blue;
+  }
+
+  .linkLogin:hover{
+    color: black;
   }

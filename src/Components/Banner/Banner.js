@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Banner.css'
 import BannerImage from '../../Assets/DigitalKartBanner.jpeg'
+import { AuthContext } from '../../Store/AuthContext'
 
 function Banner() {
+
+  const {user} = useContext(AuthContext)
+  
+
     return (
         
         <div className="bannerParentDiv">
@@ -15,6 +20,7 @@ function Banner() {
             <span>Smartphones</span>
             <span>Laptops</span>
             <span>Smartwatches</span>
+            {user && user.uid=="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <button className="btn btn-primary">Admin Page</button> : ""}
             
           </div>
         </div>
