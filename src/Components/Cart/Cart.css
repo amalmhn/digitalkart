@@ -3,8 +3,15 @@
     margin-left: 480px;
 }
 
+.orderBtn{
+    margin-left: 550px;
+}
+
 @media only screen and (max-width: 1200px) {
     .emptyCartSpan{
         margin-left: 0px;
+    }
+    .orderBtn{
+        margin-left: 170px;
     }
 }

@@ -43,6 +43,7 @@ function Header() {
            onClick={()=>{
             firebase.auth().signOut();
             history.push("/login")
+            window.location.reload()
           }} >
             Logout</span>}
           

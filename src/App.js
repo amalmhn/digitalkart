@@ -13,6 +13,8 @@ import LaptopsPage from './Pages/Laptops'
 import SmartwatchesPage from './Pages/Smartwatches'
 import Cart from './Store/CartContext'
 import CartPage from './Pages/Cart'
+import OrderPage from './Pages/Order'
+import Total from './Store/TotalContext'
 
 
 function App() {
@@ -30,6 +32,7 @@ function App() {
     <div>
     <Post>
       <Cart>
+        <Total>
       <Router>
         <Route exact path="/">
       <Home/>
@@ -58,7 +61,11 @@ function App() {
       <Route path="/cart">
       <CartPage/>
       </Route>
+      <Route path="/order">
+      <OrderPage/>
+      </Route>
       </Router>
+      </Total>
       </Cart>
     </Post>
     </div>
