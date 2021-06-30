@@ -4,11 +4,13 @@ import Logo from '../../Assets/DigitalKartLogo.jpeg'
 import { AuthContext } from '../../Store/AuthContext';
 import { FirebaseContext } from '../../Store/FirebaseContext';
 import { useHistory , Link } from 'react-router-dom';
+import { CartContext } from '../../Store/CartContext';
 
 function Header() {
 
   const {user} = useContext(AuthContext);
   const {firebase} = useContext(FirebaseContext)
+  const {cartItems} = useContext(CartContext)
 
   const history = useHistory()
 
@@ -45,9 +47,11 @@ function Header() {
             Logout</span>}
           
         {user && <div className="loginPage">
+          <Link to="/cart">
           <button className="btn btn-warning">
-          <span>Cart <span style={{color:'red'}}> <strong> 1 </strong> </span> </span>
+          <span>Cart <span style={{color:'red'}}> <strong> {cartItems.length !== 0 ? cartItems.length : ""} </strong> </span> </span>
           </button>
+          </Link>
         </div>}
         
         <Link to="/create" className="linkComponent">

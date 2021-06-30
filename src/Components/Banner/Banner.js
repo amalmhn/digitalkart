@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import './Banner.css'
 import BannerImage from '../../Assets/DigitalKartBanner.jpeg'
 import { AuthContext } from '../../Store/AuthContext'
+import { Link } from 'react-router-dom'
 
 function Banner() {
 
@@ -17,10 +18,16 @@ function Banner() {
           <div className="otherQuickOptions">
             <br/><br/>
             <span> <strong>Categories :</strong>  </span>
+            <Link to="/smartphones" className="bannerLink">
             <span>Smartphones</span>
+            </Link>
+            <Link to="/laptops" className="bannerLink">
             <span>Laptops</span>
+            </Link>
+            <Link to="/smartwatches" className="bannerLink">
             <span>Smartwatches</span>
-            {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <button className="btn btn-primary">Admin Page</button> : ""}
+            </Link>
+            {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <button className="btn btn-primary adminBtn">Admin Page</button> : ""}
             
           </div>
         </div>

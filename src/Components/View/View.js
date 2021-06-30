@@ -1,14 +1,27 @@
 import React,{useContext} from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../Store/AuthContext'
+import { CartContext } from '../../Store/CartContext'
 import { PostContext } from '../../Store/PostContext'
 import './View.css'
 
 function View() {
 
+
   const {postDetails} = useContext(PostContext)
   const {user} = useContext(AuthContext)
+  const {cartItems,setCartItems} = useContext(CartContext)
 
+  const onAdd=(product)=>{
+    const exist = cartItems.find(x=>x.id===product.id);
+    if(exist){
+      setCartItems(
+        cartItems.map(itm=>
+          itm.id === product.id ? {...exist, qty:exist.qty+1} : itm));
+    }else{
+      setCartItems([...cartItems,{...product,qty:1}])
+    }
+  }
   
     return (
         <div className="viewParentDiv">
@@ -32,7 +45,7 @@ function View() {
         </div>
         {user ?
         <Link to="/">
-        <button className="btn btn-success cartBtn">Add to cart</button>
+        <button onClick={()=>onAdd(postDetails)} className="btn btn-success cartBtn">Add to cart</button>
         </Link> :
         <Link to="/login">
         <button className="btn btn-primary cartBtn">Please login to place the order</button>

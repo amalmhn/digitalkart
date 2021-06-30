@@ -8,6 +8,11 @@ import Viewpost from './Pages/Viewpost'
 import { AuthContext } from './Store/AuthContext'
 import { FirebaseContext } from './Store/FirebaseContext'
 import Post from './Store/PostContext'
+import SmartphonesPage from './Pages/Smartphones'
+import LaptopsPage from './Pages/Laptops'
+import SmartwatchesPage from './Pages/Smartwatches'
+import Cart from './Store/CartContext'
+import CartPage from './Pages/Cart'
 
 
 function App() {
@@ -24,6 +29,7 @@ function App() {
   return (
     <div>
     <Post>
+      <Cart>
       <Router>
         <Route exact path="/">
       <Home/>
@@ -40,7 +46,20 @@ function App() {
       <Route path="/view">
       <Viewpost/>
       </Route>
+      <Route path="/smartphones">
+      <SmartphonesPage/>
+      </Route>
+      <Route path="/laptops">
+      <LaptopsPage/>
+      </Route>
+      <Route path="/smartwatches">
+      <SmartwatchesPage/>
+      </Route>
+      <Route path="/cart">
+      <CartPage/>
+      </Route>
       </Router>
+      </Cart>
     </Post>
     </div>
   )
