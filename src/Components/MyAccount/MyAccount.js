@@ -24,6 +24,7 @@ function MyAccount() {
               const filterData = all.filter(itm=> itm.fields.id.stringValue===user.uid)
               setAccount(filterData)
               setTableData(true)
+              setOrderData(false)
         })
      }
 
@@ -38,6 +39,7 @@ function MyAccount() {
               const filterData = all.filter(itm=> itm.fields.userId.stringValue===user.uid)
               setOrder(filterData)
               setOrderData(true)
+              setTableData(false)
          })
      }
 
@@ -55,15 +57,15 @@ function MyAccount() {
                     
                     
                     
-                   <table className="table table-striped">
-                    {tableData && <thead>
+                   {tableData && <table className="table table-striped">
+                    <thead>
                         <tr>
                             <th>Account Details</th>
                             <th></th>
                             <th></th>
                         </tr>
                         
-                    </thead>}
+                    </thead>
                     
                         
                     {account.map((product)=>{
@@ -84,12 +86,13 @@ function MyAccount() {
                     </tbody>
                         )
                     })} 
-                    </table>
+                    </table>}
                         
-                    <br/><br/>
                     
+
+                    {orderData && 
                     <table className="table table-striped">
-                    {orderData && <thead>
+                    <thead>
                         <tr>
                             <th>Order Details</th>
                             <th></th>
@@ -101,7 +104,7 @@ function MyAccount() {
                             <th>Order ID</th>
                         </tr>
                         
-                    </thead>}
+                    </thead>
 
                     {order.map((product)=>{
                         return(
@@ -121,7 +124,7 @@ function MyAccount() {
                     </tbody>
                         )
                     })}
-                    </table>
+                    </table>}
                     </div>
                     
                 </div>

@@ -85,7 +85,7 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
         <div>
         
         
-          <div className="centerDiv">
+          {user && user.uid=="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <div className="centerDiv">
             
               <label htmlFor="fname">Name</label>
               <br />
@@ -168,7 +168,10 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               <br />
               <button onClick={handleSubmit} className="uploadBtn btn btn-success">Upload and Submit</button>
             <span className="errorSpan">{valid}</span>
-          </div>
+          </div> : <div className="userSpan">
+            <br/><br/><br/><br/><br/><br/>
+            <span><strong>Access only for Admin</strong></span>
+            </div>}
         
         </div>
     )

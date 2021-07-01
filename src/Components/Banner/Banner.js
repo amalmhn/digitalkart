@@ -2,11 +2,12 @@ import React, { useContext } from 'react'
 import './Banner.css'
 import BannerImage from '../../Assets/DigitalKartBanner.jpeg'
 import { AuthContext } from '../../Store/AuthContext'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 function Banner() {
 
   const {user} = useContext(AuthContext)
+  const history = useHistory()
   
 
     return (
@@ -27,7 +28,9 @@ function Banner() {
             <Link to="/smartwatches" className="bannerLink">
             <span>Smartwatches</span>
             </Link>
-            {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <button className="btn btn-primary adminBtn">Admin Page</button> : ""}
+            {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <button onClick={()=>{
+              history.push("/create")
+            }} className="btn btn-primary adminBtn">Admin Page</button> : ""}
             
           </div>
         </div>

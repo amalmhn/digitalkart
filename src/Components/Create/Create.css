@@ -3,7 +3,7 @@
     width: max-content;
     padding: 50px;
     position: absolute;
-    top: 75%;
+    top: 90%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 6px;
@@ -29,6 +29,11 @@
     color: #002f34;
     border: 2px solid #002f34;
   }
+
+.userSpan{
+  margin-left: 500px;
+  font-size: xx-large;
+}
 
   @media only screen and (max-width: 1200px) {
       .centerDiv{
