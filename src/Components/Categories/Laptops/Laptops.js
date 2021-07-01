@@ -12,7 +12,11 @@ function Laptops() {
 
     useEffect(() => {
         axios.get("https://firestore.googleapis.com/v1/projects/digitalkart-1785a/databases/(default)/documents/products/").then((res)=>{
-            const all = res.data.documents
+            const all = res.data.documents.map((product)=>{
+              return{
+                ...product,id:product.name.substr(66)
+              }
+            })
             const filterData = all.filter(itm=> itm.fields.category.stringValue==="Laptops")
             setLaptops(filterData)
     })

@@ -55,7 +55,7 @@ function Header() {
           </Link>
         </div>}
         
-        <Link to="/create" className="linkComponent">
+        <Link to="/myaccount" className="linkComponent">
         {user && <div className="sellMenu">
           
         <span>My Account</span>

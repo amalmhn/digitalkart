@@ -78,7 +78,7 @@ function Cart() {
       <td></td>
       <td></td>
       <td></td>
-      <td>&#x20B9;{itemsPrice}</td>
+      <td><strong>&#x20B9;{itemsPrice}</strong></td>
     </tr>
   </tfoot>
 </table>

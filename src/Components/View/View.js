@@ -1,5 +1,5 @@
 import React,{useContext} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../Store/AuthContext'
 import { CartContext } from '../../Store/CartContext'
 import { PostContext } from '../../Store/PostContext'
@@ -11,6 +11,9 @@ function View() {
   const {postDetails} = useContext(PostContext)
   const {user} = useContext(AuthContext)
   const {cartItems,setCartItems} = useContext(CartContext)
+  const history = useHistory()
+
+  console.log(postDetails)
 
   const onAdd=(product)=>{
     const exist = cartItems.find(x=>x.id===product.id);
@@ -44,9 +47,12 @@ function View() {
 
         </div>
         {user ?
-        <Link to="/">
-        <button onClick={()=>onAdd(postDetails)} className="btn btn-success cartBtn">Add to cart</button>
-        </Link> :
+        
+        <button onClick={()=>{
+          onAdd(postDetails)
+          history.push("/")
+        }} className="btn btn-success cartBtn">Add to cart</button>
+         :
         <Link to="/login">
         <button className="btn btn-primary cartBtn">Please login to place the order</button>
         </Link>}
