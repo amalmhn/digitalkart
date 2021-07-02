@@ -2,17 +2,20 @@ import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../../Store/AuthContext';
 import { FirebaseContext } from '../../Store/FirebaseContext';
-import './Create.css'
+import { PostContext } from '../../Store/PostContext';
+import './Edit.css'
 
 function Create() {
 
-  const [name, setName] = useState('');
-  const [category, setCategory] = useState('');
-  const [price, setPrice] = useState('');
-  const [ram, setRam] = useState('');
-  const [memory, setMemory] = useState('');
-  const [brand, setBrand] = useState('');
-  const [description, setDescription] = useState('');
+  const {postDetails} = useContext(PostContext)
+
+  const [name, setName] = useState(postDetails.fields.name.stringValue);
+  const [category, setCategory] = useState(postDetails.fields.category.stringValue);
+  const [price, setPrice] = useState(postDetails.fields.price.stringValue);
+  const [ram, setRam] = useState(postDetails.fields.ram.stringValue);
+  const [memory, setMemory] = useState(postDetails.fields.memory.stringValue);
+  const [brand, setBrand] = useState(postDetails.fields.brand.stringValue);
+  const [description, setDescription] = useState(postDetails.fields.description.stringValue);
   const [image, setImage] = useState(null);
 
   const [nameError, setNameError] = useState('');
@@ -27,12 +30,11 @@ function Create() {
   const {user} = useContext(AuthContext);
   const {firebase} = useContext(FirebaseContext);
   const history = useHistory()
+  
 
   const date = new Date()
 
-
-
-  const handleSubmit=(e)=>{
+  const handleEdit=(e)=>{
 
     e.preventDefault()
 
@@ -63,30 +65,48 @@ if((description==="")){
 
 if(nameError1===true || priceError1===true || ramError1===true || memoryError1===true || brandError1===true || descError1===true){
   setValid("Invalid Details!")
-  setInterval(function(){ window.location.reload() }, 3000);
 }else{
-    
-    firebase.storage().ref(`/image/${image.name}`).put(image).then(({ref})=>{
-      ref.getDownloadURL().then((url)=>{
-        firebase.firestore().collection('products').add({
-          name,
-          category,
-          price,
-          ram,
-          memory,
-          brand:brand.toUpperCase(),
-          description,
-          url,
-          userId:user.uid,
-          createdAt: date.toDateString(),
-          
-        }).then(()=>{
-          history.push("/")
-          window.location.reload()
+
+    if(image){
+        firebase.storage().ref(`/image/${image.name}`).put(image).then(({ref})=>{
+              ref.getDownloadURL().then((url)=>{
+                firebase.firestore().collection('products').doc(postDetails.id).set({
+                  name,
+                  category,
+                  price,
+                  ram,
+                  memory,
+                  brand:brand.toUpperCase(),
+                  description,
+                  url,
+                  userId:user.uid,
+                  createdAt: postDetails.fields.createdAt.stringValue,
+                  editedAt: date.toDateString()
+                }).then(()=>{
+                    history.push("/")
+                    window.location.reload()
+                })
+              })
+            }) 
+    }else{
+        firebase.firestore().collection('products').doc(postDetails.id).set({
+            name,
+            category,
+            price,
+            ram,
+            memory,
+            brand:brand.toUpperCase(),
+            description,
+            url:postDetails.fields.url.stringValue,
+            userId:user.uid,
+            createdAt: postDetails.fields.createdAt.stringValue,
+            editedAt: date.toDateString()
+          }).then(()=>{
+            history.push("/")
+            window.location.reload()
         })
-        
-      })
-    })
+    }
+   
   }
 }
     return (
@@ -101,10 +121,9 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
                 className="input"
                 type="text"
                 id="fname"
-                value={name}
                 onChange={(e)=>{setName(e.target.value)}}
                 name="Name"
-                required
+                defaultValue={name}
               />
               <br /><span className="errorSpan"> {nameError}</span><br/>
               <label htmlFor="fname">Category</label>
@@ -113,6 +132,7 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               onChange={(e)=>{
                 setCategory(e.target.value)
               }}
+              defaultValue={category}
               >
                 <option value="Select an option">Select an option</option>
                 <option value="Smartphones">Smartphones</option>
@@ -123,9 +143,10 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               <label htmlFor="fname">Price</label>
               <br />
               <input className="input" type="number" id="price"
-              value={price}
+              
               onChange={(e)=>{setPrice(e.target.value)}}
-              name="Price" />
+              name="Price"
+              defaultValue={price} />
               <br />
               <span className="errorSpan">{priceError}</span>
               
@@ -133,9 +154,11 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               <label htmlFor="fname">Color</label>
               <br />
               <input className="input" type="text"
-              value={ram}
+              
               onChange={(e)=>{setRam(e.target.value)}}
-              id="ram" name="Price" />
+              id="ram" name="Price" 
+              defaultValue={ram}
+              />
               <br />
               <span className="errorSpan">{ramError}</span>
               
@@ -143,9 +166,11 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               <label htmlFor="fname">Memory</label>
               <br />
               <input className="input" type="text"
-              value={memory}
+              
               onChange={(e)=>{setMemory(e.target.value)}}
-              id="memory" name="Price" />
+              id="memory" name="Price" 
+              defaultValue={memory}
+              />
               <br />
               <span className="errorSpan">{memoryError}</span>
               
@@ -153,9 +178,11 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               <label htmlFor="fname">Brand</label>
               <br />
               <input className="input" type="text"
-              value={brand}
+              
               onChange={(e)=>{setBrand(e.target.value)}}
-              id="brand" name="Price" />
+              id="brand" name="Price" 
+              defaultValue={brand}
+              />
               <br />
               <span className="errorSpan">{brandError}</span>
               
@@ -163,19 +190,20 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
             <label htmlFor="fname">Description</label>
               <br />
               <input className="input" type="text"
-              value={description}
+              
               onChange={(e)=>{setDescription(e.target.value)}}
-              id="desc" name="Price" />
+              id="desc" name="Price" 
+              defaultValue={description}
+              />
               <br />
               <span className="errorSpan">{descriptionError}</span>
               <br/>
-            <img alt="Posts" width="200px" height="200px" src={image ? URL.createObjectURL(image) : ""}></img>
+            <img alt="Posts" width="200px" height="200px" src={image ? URL.createObjectURL(image) : postDetails.fields.url.stringValue}></img>
             
               <br />
               <input onChange={(e)=>{setImage(e.target.files[0])}} type="file" />
               <br />
-              <button onClick={handleSubmit} className="uploadBtn btn btn-success">Upload and Submit</button>
-            
+              <button onClick={handleEdit} className="uploadBtn btn btn-success">Upload and Submit</button>
             <span className="errorSpan">{valid}</span>
           </div> : <div className="userSpan">
             <br/><br/><br/><br/><br/><br/>

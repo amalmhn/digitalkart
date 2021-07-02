@@ -29,7 +29,7 @@ function Banner() {
             <span>Smartwatches</span>
             </Link>
             {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <button onClick={()=>{
-              history.push("/create")
+              history.push("/admin")
             }} className="btn btn-primary adminBtn">Admin Page</button> : ""}
             
           </div>
