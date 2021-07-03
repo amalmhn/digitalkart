@@ -9,6 +9,11 @@ import { useHistory } from 'react-router-dom'
 function Admin() {
 
     const [products, setProducts] = useState([])
+    const [orders, setOrders] = useState([])
+    const [users, setUsers] = useState([])
+    const [productDetails, setProductDetails] = useState(false)
+    const [orderDetails, setOrderDetails] = useState(false)
+    const [userDetails, setUserDetails] = useState(false)
 
     const {user} = useContext(AuthContext)
     const {firebase} = useContext(FirebaseContext)
@@ -25,6 +30,39 @@ function Admin() {
                 }
               })
               setProducts(allPost)
+              setProductDetails(true)
+              setOrderDetails(false)
+              setUserDetails(false)
+        })
+    }
+
+    const handleOrder=(e)=>{
+        e.preventDefault();
+        axios.get("https://firestore.googleapis.com/v1/projects/digitalkart-1785a/databases/(default)/documents/orders/").then((res)=>{
+            const allOrder = res.data.documents.map((product)=>{
+                return{
+                  ...product,id:product.name.substr(64)
+                }
+              })
+              setOrders(allOrder)
+              setOrderDetails(true)
+              setProductDetails(false)
+              setUserDetails(false)
+        })
+    }
+
+    const handleUser=(e)=>{
+        e.preventDefault();
+        axios.get("https://firestore.googleapis.com/v1/projects/digitalkart-1785a/databases/(default)/documents/users/").then((res)=>{
+            const allUsers = res.data.documents.map((product)=>{
+                return{
+                  ...product,id:product.name.substr(63)
+                }
+              })
+              setUsers(allUsers)
+              setUserDetails(true)
+              setOrderDetails(false)
+              setProductDetails(false)
         })
     }
 
@@ -37,17 +75,17 @@ function Admin() {
     return (
         <div>
             <br/><br/><br/><br/><br/>
-            <div className="buttons">
+            {user && <div className="buttons">
                 <div className="row">
                     <div onClick={handleProduct} className="col-md-3 btn btn-primary myAdminBtn">Post Details</div>
-                    <div className="col-md-3 btn btn-secondary myAdminBtn">Order Details</div>
-                    <div className="col-md-3 btn btn-success myAdminBtn">User Details</div>
+                    <div onClick={handleOrder} className="col-md-3 btn btn-secondary myAdminBtn">Order Details</div>
+                    <div onClick={handleUser} className="col-md-3 btn btn-success myAdminBtn">User Details</div>
                     <div onClick={()=>{
                         history.push("/create")
                     }} className="col-md-3 btn btn-info myAdminBtn">Create post</div>
                 </div>
-            </div>
-            <table className="table table-striped">
+            </div>}
+            {productDetails && <table className="table table-striped">
                 <thead>
                     <tr>
                         <th>Product Details</th>
@@ -84,7 +122,64 @@ function Admin() {
                         )
                     })}
                 </tbody>
-            </table>
+            </table>}
+
+            {orderDetails && <table className="table table-striped">
+                    <thead>
+                    <tr>
+                          <th>Orders</th>
+                          <th></th>
+                          <th></th>
+                          <th></th>  
+                        </tr>
+                        <tr>
+                          <th>Product name</th>
+                          <th>Customer name</th>
+                          <th>Order ID</th>
+                          <th></th>  
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {orders.map((order)=>{
+                            return(
+
+                        <tr key={order.id}>
+                            <td>{order.fields.productName.stringValue}</td>
+                            <td>{order.fields.name.stringValue}</td>
+                            <td>{order.id}</td>
+                            <td><button className="btn btn-primary">View</button></td>
+                        </tr>
+                            )
+                        })}
+                    </tbody>
+            </table>}
+
+            {userDetails && <table className="table table-striped">
+                    <thead>
+                        <tr>
+                        <th>Users</th>
+                        <th></th>
+                        <th></th>
+                        </tr>
+                        <tr>
+                        <th>Username</th>
+                        <th>Phone number</th>
+                        <th>User ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.map((user)=>{
+                            return(
+
+                        <tr key={user.id}>
+                            <td>{user.fields.username.stringValue}</td>
+                            <td>{user.fields.phone.stringValue}</td>
+                            <td>{user.fields.id.stringValue}</td>
+                        </tr>
+                            )
+                        })}
+                    </tbody>
+            </table>}
         </div>
     )
 }

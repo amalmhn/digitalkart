@@ -18,7 +18,7 @@ function MyAccount() {
         axios.get("https://firestore.googleapis.com/v1/projects/digitalkart-1785a/databases/(default)/documents/users/").then((res)=>{
             const all = res.data.documents.map((product)=>{
                 return{
-                  ...product,id:product.name.substr(66)
+                  ...product,id:product.name.substr(63)
                 }
               })
               const filterData = all.filter(itm=> itm.fields.id.stringValue===user.uid)
