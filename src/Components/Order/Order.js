@@ -35,6 +35,7 @@ function Order() {
 
   const date = new Date()
 
+  const billNumber = Math.floor(Math.random() * (100000 - 1000 + 1000) + 1000)
 
   const handleOrder=(e)=>{
 
@@ -78,7 +79,7 @@ if((contact==="")||(contactRegex.test(contact)===false)){
 }
 
 if(nameError===true || houseError===true || streetError===true || districtError===true
-  || stateError===true || pinError===true || contactError===true){
+  || stateError===true || pinError===true || contactError===true || cartItems.length===0){
   setValid("Correct the errors and click the order button. ")
 }else{
 
@@ -101,7 +102,8 @@ if(nameError===true || houseError===true || streetError===true || districtError=
       price:itm.fields.price.stringValue,
       total:totalPrice,
       totalProducts:cartItems.length,
-      orderDate: date.toDateString()
+      orderDate: date.toDateString(),
+      billNumber
   
     }).then(()=>{
     
@@ -121,7 +123,7 @@ if(nameError===true || houseError===true || streetError===true || districtError=
         <div>
         
         
-          <div className="centerDiv2">
+          {user ? <div className="centerDiv2">
             
               <label htmlFor="fname">Name</label>
               <br />
@@ -198,11 +200,15 @@ if(nameError===true || houseError===true || streetError===true || districtError=
             <br/>
             {option?<span className="loadingSpan">{valid2}</span>
              :<span className="errorSpan">{valid}</span> }
-             {cartItems.length===0?<span className="errorSpan">Error! cart is empty.
-             Add items to cart and try again.</span>:""}
+             <br/>
+             {cartItems.length===0?<span className="errorSpan"><strong>Error! cart is empty.
+             Add items to cart and try again.</strong></span>:""}
             
             
-          </div>
+          </div> : <div className="userSpan">
+            <br/><br/><br/><br/><br/>
+            <span><strong>Please Login first</strong></span>
+            </div>}
        
         </div>
     )

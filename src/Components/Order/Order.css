@@ -38,6 +38,11 @@
     color: green;
   }
 
+  .userSpan{
+    margin-left: 500px;
+    font-size: xx-large;
+  }
+  
   @media only screen and (max-width: 1200px) {
       .centerDiv2{
           top: 520px;

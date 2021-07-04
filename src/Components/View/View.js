@@ -27,7 +27,8 @@ function View() {
   }
   
     return (
-        <div className="viewParentDiv">
+      <div>
+        {postDetails ? <div className="viewParentDiv">
       <div className="imageShowDiv">
         <br/><br/>
         <img
@@ -57,6 +58,11 @@ function View() {
         <button className="btn btn-primary cartBtn">Please login to place the order</button>
         </Link>}
       </div>
+    </div> : <div className="userSpanView">
+            <br/><br/><br/>
+            <span><strong>Please select a product to show the details</strong></span>
+            <br/><br/>
+            </div>}
     </div>
     )
 }

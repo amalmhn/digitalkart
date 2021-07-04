@@ -18,6 +18,8 @@ import Total from './Store/TotalContext'
 import MyAccountPage from './Pages/MyAccount'
 import AdminPage from './Pages/Admin'
 import EditPage from './Pages/Edit'
+import OrderDetailsPage from './Pages/OrderDetails'
+import Order from './Store/OrderContext'
 
 
 function App() {
@@ -36,6 +38,7 @@ function App() {
     <Post>
       <Cart>
         <Total>
+          <Order>
       <Router>
         <Route exact path="/">
       <Home/>
@@ -76,7 +79,11 @@ function App() {
       <Route path="/edit">
       <EditPage/>
       </Route>
+      <Route path="/orderdetails">
+      <OrderDetailsPage/>
+      </Route>
       </Router>
+      </Order>
       </Total>
       </Cart>
     </Post>

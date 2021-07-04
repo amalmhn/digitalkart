@@ -5,6 +5,7 @@ import './Admin.css'
 import { FirebaseContext } from '../../Store/FirebaseContext'
 import { PostContext } from '../../Store/PostContext'
 import { useHistory } from 'react-router-dom'
+import { OrderContext } from '../../Store/OrderContext'
 
 function Admin() {
 
@@ -19,6 +20,7 @@ function Admin() {
     const {firebase} = useContext(FirebaseContext)
     const {setPostDetails} = useContext(PostContext)
     const history = useHistory()
+    const {setOrderView} = useContext(OrderContext)
 
     const handleProduct=(e)=>{
         e.preventDefault();
@@ -75,6 +77,7 @@ function Admin() {
     return (
         <div>
             <br/><br/><br/><br/><br/>
+            {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <div>
             {user && <div className="buttons">
                 <div className="row">
                     <div onClick={handleProduct} className="col-md-3 btn btn-primary myAdminBtn">Post Details</div>
@@ -130,12 +133,14 @@ function Admin() {
                           <th>Orders</th>
                           <th></th>
                           <th></th>
+                          <th></th>
                           <th></th>  
                         </tr>
                         <tr>
                           <th>Product name</th>
                           <th>Customer name</th>
                           <th>Order ID</th>
+                          <th>Bill Number</th>
                           <th></th>  
                         </tr>
                     </thead>
@@ -147,7 +152,14 @@ function Admin() {
                             <td>{order.fields.productName.stringValue}</td>
                             <td>{order.fields.name.stringValue}</td>
                             <td>{order.id}</td>
-                            <td><button className="btn btn-primary">View</button></td>
+                            <td>{order.fields.billNumber.integerValue}</td>
+                            <td><button
+                            onClick={()=>{
+                                setOrderView(order)
+                                history.push("/orderdetails")
+                            }
+                            }
+                            className="btn btn-primary">View</button></td>
                         </tr>
                             )
                         })}
@@ -180,6 +192,10 @@ function Admin() {
                         })}
                     </tbody>
             </table>}
+            </div>: <div className="userSpan">
+            <br/><br/><br/>
+            <span><strong>Access only for Admin</strong></span>
+            </div>}
         </div>
     )
 }

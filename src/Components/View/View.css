@@ -53,6 +53,11 @@
     width: 100%;
   }
 
+  .userSpanView{
+    margin-left: 300px;
+    font-size: xx-large;
+  }
+
   @media only screen and (max-width: 1200px) {
     .cartBtn{
       width: 100%;
