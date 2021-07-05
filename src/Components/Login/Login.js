@@ -9,8 +9,11 @@ function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [valid, setValid] = useState('')
-  const history = useHistory()
   const [passwordError, setPasswordError] = useState('')
+  const [valid2, setValid2] = useState('')
+  const [option, setOption] = useState(false)
+  
+  const history = useHistory()
   const {firebase} = useContext(FirebaseContext)
 
   const handleLogin=(e)=>{
@@ -28,6 +31,9 @@ function Login() {
       setValid("Invalid Details!")
       setInterval(function(){ window.location.reload() }, 3000);
     }else{
+
+      setOption(true);
+      setValid2("Logging in, please wait...")
 
       firebase.auth().signInWithEmailAndPassword(email,password).then(()=>{
         console.log("Logged in")
@@ -77,12 +83,15 @@ function Login() {
           <button className="btn btn-success">Login</button>
           
         </form>
+        {option && <span className="loadingSpan"><strong>{valid2}</strong></span>} 
+        <br/>
         <span className="new">Are you a new user?</span><br/>
         <Link to="/signup" className="linkLogin">
         <span className="signup"> <strong> Signup </strong> </span>
         </Link>
+        <span className="validSpan">{valid}</span>
       <br/>
-      <span className="validSpan">{valid}</span>
+      
       
       </div>
     </div>

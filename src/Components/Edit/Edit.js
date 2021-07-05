@@ -25,7 +25,8 @@ function Create() {
   const [brandError, setBrandError] = useState('');
   const [descriptionError, setDescriptionError] = useState('');
   const [valid, setValid] = useState('');
-
+  const [option, setOption] = useState(false);
+  const [valid2, setValid2] = useState('');
 
   const {user} = useContext(AuthContext);
   const {firebase} = useContext(FirebaseContext);
@@ -68,6 +69,10 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
 }else{
 
     if(image){
+
+      setOption(true);
+      setValid2("Updating the details, please wait...")
+
         firebase.storage().ref(`/image/${image.name}`).put(image).then(({ref})=>{
               ref.getDownloadURL().then((url)=>{
                 firebase.firestore().collection('products').doc(postDetails.id).set({
@@ -89,6 +94,10 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               })
             }) 
     }else{
+
+      setOption(true);
+      setValid2("Updating the details, please wait...")
+
         firebase.firestore().collection('products').doc(postDetails.id).set({
             name,
             category,
@@ -204,7 +213,7 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               <input onChange={(e)=>{setImage(e.target.files[0])}} type="file" />
               <br />
               <button onClick={handleEdit} className="uploadBtn btn btn-success">Upload and Submit</button>
-            <span className="errorSpan">{valid}</span>
+            {option ? <span className="loadingSpan"><strong>{valid2}</strong></span> :<span className="errorSpan">{valid}</span>}
           </div> : <div className="userSpan">
             <br/><br/><br/><br/><br/><br/>
             <span><strong>Access only for Admin</strong></span>

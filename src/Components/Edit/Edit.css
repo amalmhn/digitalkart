@@ -36,7 +36,9 @@
   font-size: xx-large;
 }
 
-
+.loadingSpan{
+  color: green;
+}
 
   @media only screen and (max-width: 1200px) {
       .centerDiv{

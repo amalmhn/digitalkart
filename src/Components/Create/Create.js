@@ -22,7 +22,8 @@ function Create() {
   const [brandError, setBrandError] = useState('');
   const [descriptionError, setDescriptionError] = useState('');
   const [valid, setValid] = useState('');
-
+  const [valid2, setValid2] = useState('');
+  const [option, setOption] = useState(false);
 
   const {user} = useContext(AuthContext);
   const {firebase} = useContext(FirebaseContext);
@@ -65,6 +66,9 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
   setValid("Invalid Details!")
   setInterval(function(){ window.location.reload() }, 3000);
 }else{
+
+    setOption(true);
+    setValid2("Submitting the product details, please wait...")
     
     firebase.storage().ref(`/image/${image.name}`).put(image).then(({ref})=>{
       ref.getDownloadURL().then((url)=>{
@@ -176,7 +180,7 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               <br />
               <button onClick={handleSubmit} className="uploadBtn btn btn-success">Upload and Submit</button>
             
-            <span className="errorSpan">{valid}</span>
+            {option ? <span className="loadingSpan"><strong>{valid2}</strong></span> :<span className="errorSpan">{valid}</span>}
           </div> : <div className="userSpanCreate">
             <br/><br/><br/><br/><br/><br/>
             <span><strong>Access only for Admin</strong></span>

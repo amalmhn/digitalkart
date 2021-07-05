@@ -44,6 +44,10 @@
   color: red;
 }
 
+.loadingSpan{
+  color: green;
+}
+
 @media only screen and (max-width: 1200px) {
       .centerDiv1{
           top: 500px;

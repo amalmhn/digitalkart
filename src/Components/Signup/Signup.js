@@ -17,6 +17,8 @@ function Signup() {
   const [phoneError, setPhoneError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [valid, setValid] = useState('')
+  const [valid2, setValid2] = useState('')
+  const [option, setOption] = useState(false)
 
   const {firebase} = useContext(FirebaseContext)
 
@@ -46,8 +48,11 @@ if(error===true || phoneError1===true || passwordError1===true){
   setValid("Invalid Details!")
   setInterval(function(){ window.location.reload() }, 3000);
 }else{
+
+  setOption(true);
+  setValid2("Creating account, please wait...")
+
   firebase.auth().createUserWithEmailAndPassword(email,password).then((result)=>{
-    // console.log(result)
     result.user.updateProfile({displayName:username}).then(()=>{
       firebase.firestore().collection('users').add({
         id:result.user.uid,
@@ -132,18 +137,19 @@ if(error===true || phoneError1===true || passwordError1===true){
           <br />
           <button className="btn btn-success">Signup</button>
         </form>
-        
+        {option ? <span className="loadingSpan"><strong>{valid2}</strong></span> : <span className="errorSpan">{valid}</span>}
+        {error ? <div>
+        <span className="errorSpan">{error}</span>
+       </div> : ""}
+       <br/>
         <span className="existing">Existing User?</span><br/>
         <Link to="/login" className="linkSignup">
         <span className="loginLink"> <strong> Login</strong> </span>
         </Link>
-        <br/>
-        <span className="errorSpan">{valid}</span>
-      </div>
-      <div className="catchErrorDiv">
-      <span>{error}</span>
       
+        
       </div>
+      
     </div>
     )
 }

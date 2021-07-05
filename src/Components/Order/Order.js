@@ -82,7 +82,7 @@ if(nameError===true || houseError===true || streetError===true || districtError=
   || stateError===true || pinError===true || contactError===true || cartItems.length===0){
   setValid("Correct the errors and click the order button. ")
 }else{
-
+  
   setOption(true)
   setValid2("Order is placing, please wait... ")
   cartItems.map((itm)=>{

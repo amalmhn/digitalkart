@@ -62,3 +62,7 @@
   .linkLogin:hover{
     color: black;
   }
+
+  .loadingSpan{
+    color: green;
+  }
