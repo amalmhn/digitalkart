@@ -13,8 +13,6 @@ function View() {
   const {cartItems,setCartItems} = useContext(CartContext)
   const history = useHistory()
 
-  console.log(postDetails)
-
   const onAdd=(product)=>{
     const exist = cartItems.find(x=>x.id===product.id);
     if(exist){

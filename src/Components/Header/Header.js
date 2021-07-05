@@ -1,18 +1,38 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import './Header.css';
 import Logo from '../../Assets/DigitalKartLogo.jpeg'
 import { AuthContext } from '../../Store/AuthContext';
 import { FirebaseContext } from '../../Store/FirebaseContext';
 import { useHistory , Link } from 'react-router-dom';
 import { CartContext } from '../../Store/CartContext';
+import { SearchContext } from '../../Store/SearchContext';
+import axios from 'axios';
 
 function Header() {
 
   const {user} = useContext(AuthContext);
   const {firebase} = useContext(FirebaseContext)
   const {cartItems} = useContext(CartContext)
+  const {setSearchItem} = useContext(SearchContext)
+
+  const [search, setSearch] = useState("")
 
   const history = useHistory()
+
+  const hanleSearch=(e)=>{
+    e.preventDefault()
+
+    axios.get("https://firestore.googleapis.com/v1/projects/digitalkart-1785a/databases/(default)/documents/products/").then((res)=>{
+      const allSearch = res.data.documents.map((product)=>{
+        return{
+          ...product,id:product.name.substr(66)
+        }
+      })
+      const filterData = allSearch.filter(itm=> itm.fields.brand.stringValue===search.toUpperCase())
+      setSearchItem(filterData)
+      history.push("/search")
+    })
+  }
 
   return (
     <div className="headerParentDiv">
@@ -27,9 +47,13 @@ function Header() {
             <input
               type="text"
               placeholder="Search brands (Eg: Apple, Samsung etc..)"
+              value={search}
+              onChange={(e)=>{
+                setSearch(e.target.value)
+              }}
             />
           </div>
-          <div className="searchAction">
+          <div onClick={hanleSearch} className="searchAction">
             <span className="searchIcon">&#128269;</span>
           </div>
         </div>

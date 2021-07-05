@@ -112,7 +112,7 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
     return (
         <div>
         
-        
+          <div>
           {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <div className="centerDiv">
             
               <label htmlFor="fname">Name</label>
@@ -209,7 +209,7 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
             <br/><br/><br/><br/><br/><br/>
             <span><strong>Access only for Admin</strong></span>
             </div>}
-        
+            </div>
         </div>
     )
 }

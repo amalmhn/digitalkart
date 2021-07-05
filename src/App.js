@@ -20,6 +20,8 @@ import AdminPage from './Pages/Admin'
 import EditPage from './Pages/Edit'
 import OrderDetailsPage from './Pages/OrderDetails'
 import Order from './Store/OrderContext'
+import Search from './Store/SearchContext'
+import SearchPage from './Pages/Search'
 
 
 function App() {
@@ -39,6 +41,7 @@ function App() {
       <Cart>
         <Total>
           <Order>
+            <Search>
       <Router>
         <Route exact path="/">
       <Home/>
@@ -82,7 +85,11 @@ function App() {
       <Route path="/orderdetails">
       <OrderDetailsPage/>
       </Route>
+      <Route path="/search">
+      <SearchPage/>
+      </Route>
       </Router>
+      </Search>
       </Order>
       </Total>
       </Cart>

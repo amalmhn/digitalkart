@@ -205,7 +205,7 @@ if(nameError===true || houseError===true || streetError===true || districtError=
              Add items to cart and try again.</strong></span>:""}
             
             
-          </div> : <div className="userSpan">
+          </div> : <div className="userSpanLogin">
             <br/><br/><br/><br/><br/>
             <span><strong>Please Login first</strong></span>
             </div>}
