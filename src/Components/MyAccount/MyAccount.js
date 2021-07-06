@@ -60,8 +60,7 @@ function MyAccount() {
                    {tableData && <table className="table table-striped">
                     <thead>
                         <tr>
-                            <th>Account Details</th>
-                            <th></th>
+                            <th colSpan='2'>Account Details</th>
                             <th></th>
                         </tr>
                         
@@ -75,12 +74,13 @@ function MyAccount() {
                         <tr>
                             <th>Username:</th>
                             <td>{product.fields.username.stringValue}</td>
+                            <td></td>
                             
                         </tr>
                         <tr>
                             <th>Phone number:</th>
                             <td>{product.fields.phone.stringValue}</td>
-                            
+                            <td></td>
                         </tr>
                         
                     </tbody>
@@ -94,7 +94,7 @@ function MyAccount() {
                     <table className="table table-striped">
                     <thead>
                         <tr>
-                            <th>Order Details</th>
+                            <th colSpan="3">Order Details</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -102,6 +102,8 @@ function MyAccount() {
                             <th>Product name</th>
                             <th>Order date</th>
                             <th>Order ID</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                         
                     </thead>
@@ -117,7 +119,8 @@ function MyAccount() {
                             <td>{product.fields.productName.stringValue}</td>
                             <td>{product.fields.orderDate.stringValue}</td>
                             <td>{product.id}</td>
-                            
+                            <td></td>
+                            <td></td>
                         </tr>
                         
                         

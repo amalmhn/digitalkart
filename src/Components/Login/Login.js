@@ -36,7 +36,6 @@ function Login() {
       setValid2("Logging in, please wait...")
 
       firebase.auth().signInWithEmailAndPassword(email,password).then(()=>{
-        console.log("Logged in")
         history.push("/")
       }).catch((error) => {
         console.error(error.message);

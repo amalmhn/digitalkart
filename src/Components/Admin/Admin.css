@@ -6,7 +6,13 @@
     text-align: center;
 }
 
-.userSpan{
+.userSpanAdmin{
     margin-left: 500px;
     font-size: xx-large;
+  }
+
+  @media only screen and (max-width: 1200px) {
+    .userSpanAdmin{
+        margin-left: 80px;
+      }
   }

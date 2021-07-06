@@ -182,8 +182,9 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
             
             {option ? <span className="loadingSpan"><strong>{valid2}</strong></span> :<span className="errorSpan">{valid}</span>}
           </div> : <div className="userSpanCreate">
-            <br/><br/><br/><br/><br/><br/>
+            <br/><br/><br/><br/><br/>
             <span><strong>Access only for Admin</strong></span>
+            <br/><br/><br/><br/><br/>
             </div>}
         
         </div>

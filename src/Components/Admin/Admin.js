@@ -192,7 +192,7 @@ function Admin() {
                         })}
                     </tbody>
             </table>}
-            </div>: <div className="userSpan">
+            </div>: <div className="userSpanAdmin">
             <br/><br/><br/>
             <span><strong>Access only for Admin</strong></span>
             </div>}

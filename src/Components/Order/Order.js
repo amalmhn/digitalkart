@@ -124,7 +124,9 @@ if(nameError===true || houseError===true || streetError===true || districtError=
         
         
           {user ? <div className="centerDiv2">
-            
+          {cartItems.length===0?<span className="errorSpan"><strong>Error! cart is empty.
+             Add items to cart and try again.</strong></span>:""}
+             <br/>
               <label htmlFor="fname">Name</label>
               <br />
               <input
@@ -200,9 +202,8 @@ if(nameError===true || houseError===true || streetError===true || districtError=
             <br/>
             {option?<span className="loadingSpan">{valid2}</span>
              :<span className="errorSpan">{valid}</span> }
-             <br/>
-             {cartItems.length===0?<span className="errorSpan"><strong>Error! cart is empty.
-             Add items to cart and try again.</strong></span>:""}
+             
+             
             
             
           </div> : <div className="userSpanLogin">
