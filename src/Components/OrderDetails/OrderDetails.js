@@ -6,8 +6,6 @@ function OrderDetails() {
 
     const {orderView} = useContext(OrderContext)
 
-    console.log(orderView)
-
     return (
         <div>
             <br/><br/><br/><br/><br/>

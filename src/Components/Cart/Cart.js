@@ -12,8 +12,7 @@ function Cart() {
     const history = useHistory()
 
     const itemsPrice = cartItems.reduce((a,c)=> a + c.fields.price.stringValue* c.qty , 0);
-    
-    console.log(cartItems)
+
     const handleAdd=(product)=>{
         const exist = cartItems.find(x=> x.id===product.id);
         if(exist){

@@ -10,10 +10,9 @@ function MyAccount() {
     const [tableData, setTableData] = useState(false)
     const [orderData, setOrderData] = useState(false)
 
-
     const {user} = useContext(AuthContext)
-
-     const handleAccount=(e)=>{
+        
+    const handleAccount=(e)=>{
         e.preventDefault()
         axios.get("https://firestore.googleapis.com/v1/projects/digitalkart-1785a/databases/(default)/documents/users/").then((res)=>{
             const all = res.data.documents.map((product)=>{
@@ -100,9 +99,9 @@ function MyAccount() {
                         </tr>
                         <tr>
                             <th>Product name</th>
+                            <th>Bill number</th>
                             <th>Order date</th>
                             <th>Order ID</th>
-                            <th></th>
                             <th></th>
                         </tr>
                         
@@ -113,13 +112,11 @@ function MyAccount() {
 
                     <tbody key={product.id}>
                         
-                            
-
                         <tr>
                             <td>{product.fields.productName.stringValue}</td>
+                            <td>{product.fields.billNumber.integerValue}</td>
                             <td>{product.fields.orderDate.stringValue}</td>
                             <td>{product.id}</td>
-                            <td></td>
                             <td></td>
                         </tr>
                         

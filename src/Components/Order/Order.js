@@ -26,6 +26,7 @@ function Order() {
   const [valid, setValid] = useState('');
   const [valid2, setValid2] = useState('');
   const [option, setOption] = useState(false);
+  const [error, setError] = useState("");
 
   const {cartItems} = useContext(CartContext)
   const {totalPrice} = useContext(TotalContext)
@@ -109,6 +110,8 @@ if(nameError===true || houseError===true || streetError===true || districtError=
     
       history.push("/")
       window.location.reload()
+    }).catch((error)=>{
+      setError(error.message)
     })
     
     )})
@@ -200,11 +203,10 @@ if(nameError===true || houseError===true || streetError===true || districtError=
            
               <button onClick={handleOrder} className="uploadBtn2 btn btn-success">Place your Order</button>
             <br/>
-            {option?<span className="loadingSpan">{valid2}</span>
+            {option?<span className="loadingSpan"> <strong>{valid2}</strong> </span>
              :<span className="errorSpan">{valid}</span> }
              
-             
-            
+             <span className="errorSpan">{error}</span>            
             
           </div> : <div className="userSpanLogin">
             <br/><br/><br/><br/><br/>
