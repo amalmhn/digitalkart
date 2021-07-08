@@ -22,6 +22,7 @@ import OrderDetailsPage from './Pages/OrderDetails'
 import Order from './Store/OrderContext'
 import Search from './Store/SearchContext'
 import SearchPage from './Pages/Search'
+import ForgetPasswordPage from './Pages/ForgetPassword'
 
 
 function App() {
@@ -87,6 +88,9 @@ function App() {
       </Route>
       <Route path="/search">
       <SearchPage/>
+      </Route>
+      <Route path="/forget">
+      <ForgetPasswordPage/>
       </Route>
       </Router>
       </Search>

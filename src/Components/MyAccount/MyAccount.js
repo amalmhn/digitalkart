@@ -47,7 +47,7 @@ function MyAccount() {
     return (
         <div>
             <br/><br/><br/><br/><br/>
-            <div className="buttons">
+            {user ? <div className="buttons">
                 <div className="container">
                 {user && <div className="row">
                     <div onClick={handleAccount} className="col-md-6 btn btn-primary myAcntBtn" >Account Details</div>
@@ -127,7 +127,12 @@ function MyAccount() {
                     </table>}
                     </div>
                     
+                </div> : 
+                <div className="userSpanLogin">
+                    <br/><br/><br/>
+                <span><strong>Please Login first</strong></span>
                 </div>
+                }
             </div>
         
     )

@@ -88,6 +88,10 @@ function Login() {
         <Link to="/signup" className="linkLogin">
         <span className="signup"> <strong> Signup </strong> </span>
         </Link>
+        <Link to="/forget" className="linkLogin">
+        <span className="signup"> <strong>Forget Password? </strong> </span>
+        </Link>
+        
         <span className="validSpan">{valid}</span>
       <br/>
       
