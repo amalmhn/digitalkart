@@ -38,28 +38,35 @@ function Create() {
 
     e.preventDefault()
 
-    if((name==="")){
-      setNameError("Field should not be empty")
+    var nameRegex = /^[a-zA-Z]{2,30}$/
+    var priceRegex = /^[0-9]{2,10}$/
+    var ramRegex = /^[a-zA-Z]{2,20}$/
+    var memoryRegex = /^[a-zA-Z0-9]{2,10}$/
+    var brandRegex = /^[a-zA-Z]{2,20}$/
+    var descriptionRegex = /^[a-zA-Z]{2,250}$/
+
+    if((name==="")||(nameRegex.test(name)===false)){
+      setNameError("Name must be min 2 & max 30 characters")
       var nameError1 = true;
   }
-  if((price==="")){
-    setPriceError("Field should not be empty")
+  if((price==="")||(priceRegex.test(price)===false)){
+    setPriceError("Price must be min 2 & max 10 digits")
     var priceError1 = true;
 }
-if((ram==="")){
-  setRamError("Field should not be empty")
+if((ram==="")||(ramRegex.test(ram)===false)){
+  setRamError("Color must be min 2 & max 20 characters")
   var ramError1 = true;
 }
-if((memory==="")){
-  setMemoryError("Field should not be empty")
+if((memory==="")||(memoryRegex.test(memory)===false)){
+  setMemoryError("Memory must be min 2 & max 10 characters")
   var memoryError1 = true;
 }
-if((brand==="")){
-  setBrandError("Field should not be empty")
+if((brand==="")||(brandRegex.test(brand)===false)){
+  setBrandError("Brand must be min 2 & max 20 characters")
   var brandError1 = true;
 }
-if((description==="")){
-  setDescriptionError("Field should not be empty")
+if((description==="")||(descriptionRegex.test(description)===false)){
+  setDescriptionError("Description must be min 2 & max 250 characters")
   var descError1 = true;
 }
 

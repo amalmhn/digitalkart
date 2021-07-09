@@ -20,7 +20,7 @@ function Login() {
 
     e.preventDefault()
     
-    var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/
+    var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,15}$/
     
     if((password==="")||(passwordRegex.test(password)===false)){
       setPasswordError("Invalid Password!");
