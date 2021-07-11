@@ -77,7 +77,7 @@ function Admin() {
     return (
         <div>
             <br/><br/><br/><br/><br/>
-            {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <div>
+            {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <div className="container">
             {user && <div className="buttons">
                 <div className="row">
                     <div onClick={handleProduct} className="col-md-3 btn btn-primary myAdminBtn">Post Details</div>

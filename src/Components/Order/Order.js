@@ -42,32 +42,32 @@ function Order() {
 
     e.preventDefault()
 
-    var nameRegex = /^[a-zA-Z]{2,}$/
-    var houseRegex = /^[a-zA-Z0-9 ]*$/
-    var streetRegex = /^[a-zA-Z0-9 ]*$/
-    var districtRegex = /^[a-zA-Z]*$/
-    var stateRegex = /^[a-zA-Z ]*$/
+    var nameRegex = /^[a-zA-Z ]{2,30}$/
+    var houseRegex = /^[a-zA-Z0-9 ]{2,30}$/
+    var streetRegex = /^[a-zA-Z0-9 ]{2,50}$/
+    var districtRegex = /^[a-zA-Z]{2,50}$/
+    var stateRegex = /^[a-zA-Z]{2,50}$/
     var pinRegex = /^[0-9]{6}$/
     var contactRegex = /^[0-9]{10}$/
 
     if((name==="")||(nameRegex.test(name)===false)){
-      setNameError("Name must be alphabets, minimum of 5 characters");
+      setNameError("Only alphabets, min 2 & max 30 characters");
       var nameError = true;
   }
   if((house==="")||(houseRegex.test(house)===false)){
-    setHouseError("Field should not contain any special characters");
+    setHouseError("Min 2 & max 30 characters, no special characters");
     var houseError = true;
 }
 if((street==="")||(streetRegex.test(street)===false)){
-  setStreetError("Field should not contain any special characters");
+  setStreetError("Min 2 & max 50 characters, no special characters");
   var streetError = true;
 }
 if((district==="")||(districtRegex.test(district)===false)){
-  setDistrictError("Field should not contain any special characters");
+  setDistrictError("Min 2 & max 50 characters, no special characters");
   var districtError = true;
 }
 if((state==="")||(stateRegex.test(state)===false)){
-  setStateError("Field should not contain any special characters");
+  setStateError("Min 2 & max 50 characters, no special characters");
   var stateError = true;
 }
 if((pin==="")||(pinRegex.test(pin)===false)){
@@ -199,7 +199,6 @@ if(nameError===true || houseError===true || streetError===true || districtError=
               id="contact" name="Price" />
               <br />
               {option ? "" : <span className="errorSpan">{contactError}</span>}
-            <br />
            
               <button onClick={handleOrder} className="uploadBtn2 btn btn-success">Place your Order</button>
             <br/>

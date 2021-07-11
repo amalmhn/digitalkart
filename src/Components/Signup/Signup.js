@@ -27,12 +27,12 @@ function Signup() {
   const handleSubmit=(e)=>{
     e.preventDefault()
 
-    var usernameRegex = /^[a-zA-Z0-9]{5,10}$/
+    var usernameRegex = /^[a-zA-Z0-9]{3,10}$/
     var phoneRegex = /^[0-9]{10}$/
     var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,15}$/
     
     if((username==="")||(usernameRegex.test(username)===false)){
-      setUserError("Username must be min 5 & max 10 characters and without special characters(!@#$%)");
+      setUserError("Min 3 & max 10 characters and without special characters");
       var error = true;
   }
   if((phone==="")||(phoneRegex.test(phone)===false)){
@@ -40,7 +40,7 @@ function Signup() {
     var phoneError1 = true;
 }
 if((password==="")||(passwordRegex.test(password)===false)){
-  setPasswordError("Password should be min 6 & max 15 characters, 1 letter, 1 number and 1 special character");
+  setPasswordError("Min 6 & max 15 characters, 1 letter, 1 number and 1 special character");
   var passwordError1 = true;
 }
 

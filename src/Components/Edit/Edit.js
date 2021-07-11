@@ -40,28 +40,35 @@ function Create() {
 
     e.preventDefault()
 
-    if((name==="")){
-      setNameError("Field should not be empty")
+    var nameRegex = /^[a-zA-Z0-9 ]{2,30}$/
+    var priceRegex = /^[0-9]{2,10}$/
+    var ramRegex = /^[a-zA-Z ]{2,20}$/
+    var memoryRegex = /^[a-zA-Z0-9 ]{2,10}$/
+    var brandRegex = /^[a-zA-Z]{2,20}$/
+    var descriptionRegex = /^[a-zA-Z0-9 $&+,:;=?@#|'<>.^*()%!-]{2,250}$/
+
+    if((name==="") ||(nameRegex.test(name)===false)){
+      setNameError("Min 2 & max 30 characters without special characters")
       var nameError1 = true;
   }
-  if((price==="")){
-    setPriceError("Field should not be empty")
+  if((price==="")||(priceRegex.test(price)===false)){
+    setPriceError("Min 2 & max 10 digits without spaces")
     var priceError1 = true;
 }
-if((ram==="")){
-  setRamError("Field should not be empty")
+if((ram==="")||(ramRegex.test(ram)===false)){
+  setRamError("Min 2 & max 20 characters, Only alphabets")
   var ramError1 = true;
 }
-if((memory==="")){
-  setMemoryError("Field should not be empty")
+if((memory==="")||(memoryRegex.test(memory)===false)){
+  setMemoryError("Memory must be min 2 & max 10 characters")
   var memoryError1 = true;
 }
-if((brand==="")){
-  setBrandError("Field should not be empty")
+if((brand==="")||(brandRegex.test(brand)===false)){
+  setBrandError("Min 2 & max 20 characters without spaces")
   var brandError1 = true;
 }
-if((description==="")){
-  setDescriptionError("Field should not be empty")
+if((description==="")||(descriptionRegex.test(description)===false)){
+  setDescriptionError("Description must be min 2 & max 250 characters")
   var descError1 = true;
 }
 
@@ -141,7 +148,8 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
                 name="Name"
                 defaultValue={name}
               />
-              <br /><span className="errorSpan"> {nameError}</span><br/>
+              <br />
+              {option ? "" : <span className="errorSpan"> {nameError}</span>}<br/>
               <label htmlFor="fname">Category</label>
               <br /><span className="errorSpan"></span>
               <select name="category" className="categorySelect" 
@@ -164,7 +172,7 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               name="Price"
               defaultValue={price} />
               <br />
-              <span className="errorSpan">{priceError}</span>
+              {option ? "" : <span className="errorSpan">{priceError}</span>}
               
               <br/>
               <label htmlFor="fname">Color</label>
@@ -176,7 +184,7 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               defaultValue={ram}
               />
               <br />
-              <span className="errorSpan">{ramError}</span>
+              {option ? "" : <span className="errorSpan">{ramError}</span>}
               
               <br/>
               <label htmlFor="fname">Memory</label>
@@ -188,7 +196,7 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               defaultValue={memory}
               />
               <br />
-              <span className="errorSpan">{memoryError}</span>
+              {option ? "" : <span className="errorSpan">{memoryError}</span>}
               
               <br/>
               <label htmlFor="fname">Brand</label>
@@ -200,7 +208,7 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               defaultValue={brand}
               />
               <br />
-              <span className="errorSpan">{brandError}</span>
+              {option ? "" : <span className="errorSpan">{brandError}</span>}
               
             <br />
             <label htmlFor="fname">Description</label>
@@ -212,7 +220,7 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               defaultValue={description}
               />
               <br />
-              <span className="errorSpan">{descriptionError}</span>
+              {option ? "" : <span className="errorSpan">{descriptionError}</span>}
               <br/>
             <img alt="Posts" width="200px" height="200px" src={image ? URL.createObjectURL(image) : postDetails.fields.url.stringValue}></img>
             
