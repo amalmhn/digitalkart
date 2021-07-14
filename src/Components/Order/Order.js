@@ -4,6 +4,7 @@ import { AuthContext } from '../../Store/AuthContext'
 import { CartContext } from '../../Store/CartContext'
 import { FirebaseContext } from '../../Store/FirebaseContext'
 import { TotalContext } from '../../Store/TotalContext'
+import emailjs from 'emailjs-com'
 import './Order.css'
 
 function Order() {
@@ -39,7 +40,9 @@ function Order() {
 
   const billNumber = Math.floor(Math.random() * (100000 - 1000 + 1000) + 1000)
 
-  async function handleOrder(){
+  async function handleOrder(e){
+
+    e.preventDefault();
 
     var nameRegex = /^[a-zA-Z ]{2,30}$/
     var houseRegex = /^[a-zA-Z0-9 ]{2,30}$/
@@ -107,6 +110,13 @@ if(nameError===true || houseError===true || streetError===true || districtError=
       orderDate: date.toDateString(),
       billNumber
   
+    }).then(()=>{
+      emailjs.sendForm('gmail', 'template_ukpeseu', e.target, 'user_lvSOpwAVNl2TxWILVWkcT')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
     }).catch((error)=>{
       setError(error.message)
     })
@@ -179,6 +189,7 @@ if(nameError===true || houseError===true || streetError===true || districtError=
           {cartItems.length===0?<span className="errorSpan"><strong>Error! cart is empty.
              Add items to cart and try again.</strong></span>:""}
              <br/>
+             <form onSubmit={handleOrder} >
               <label htmlFor="fname">Name</label>
               <br />
               <input
@@ -236,7 +247,7 @@ if(nameError===true || houseError===true || streetError===true || districtError=
               <input className="input2" type="email"
               value={email}
               onChange={(e)=>{setEmail(e.target.value)}}
-              id="email" name="Price" />
+              id="email" name="Email" />
               <br /><br/>
               <label htmlFor="pin">PIN Code</label>
               <br />
@@ -252,11 +263,12 @@ if(nameError===true || houseError===true || streetError===true || districtError=
               <input className="input2" type="number"
               value={contact}
               onChange={(e)=>{setContact(e.target.value)}}
-              id="contact" name="Price" />
+              id="contact" name="Contact" />
               <br />
               {option ? "" : <span className="errorSpan">{contactError}</span>}
            
-              <button onClick={handleOrder} className="uploadBtn2 btn btn-success">Place your Order</button>
+              <button className="uploadBtn2 btn btn-success">Place your Order</button>
+              </form>
             <br/>
             {option?<span className="loadingSpan"> <strong>{valid2}</strong> </span>
              :<span className="errorSpan">{valid}</span> }
