@@ -12,9 +12,11 @@ function Admin() {
     const [products, setProducts] = useState([])
     const [orders, setOrders] = useState([])
     const [users, setUsers] = useState([])
+    const [payments, setPayments] = useState([])
     const [productDetails, setProductDetails] = useState(false)
     const [orderDetails, setOrderDetails] = useState(false)
     const [userDetails, setUserDetails] = useState(false)
+    const [paymentDetails, setPaymentDetails] = useState(false)
 
     const {user} = useContext(AuthContext)
     const {firebase} = useContext(FirebaseContext)
@@ -35,6 +37,7 @@ function Admin() {
               setProductDetails(true)
               setOrderDetails(false)
               setUserDetails(false)
+              setPaymentDetails(false)
         })
     }
 
@@ -50,6 +53,7 @@ function Admin() {
               setOrderDetails(true)
               setProductDetails(false)
               setUserDetails(false)
+              setPaymentDetails(false)
         })
     }
 
@@ -65,6 +69,23 @@ function Admin() {
               setUserDetails(true)
               setOrderDetails(false)
               setProductDetails(false)
+              setPaymentDetails(false)
+        })
+    }
+
+    const handlePayment=(e)=>{
+        e.preventDefault();
+        axios.get("https://firestore.googleapis.com/v1/projects/digitalkart-1785a/databases/(default)/documents/payment/").then((res)=>{
+            const allPayment = res.data.documents.map((product)=>{
+                return{
+                    ...product,id:product.name.substr(65)
+                }
+            })
+            setPayments(allPayment)
+            setPaymentDetails(true)
+            setOrderDetails(false)
+            setProductDetails(false)
+            setUserDetails(false)
         })
     }
 
@@ -80,12 +101,13 @@ function Admin() {
             {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <div className="container">
             {user && <div className="buttons">
                 <div className="row">
-                    <div onClick={handleProduct} className="col-md-3 btn btn-primary myAdminBtn">Post Details</div>
-                    <div onClick={handleOrder} className="col-md-3 btn btn-secondary myAdminBtn">Order Details</div>
-                    <div onClick={handleUser} className="col-md-3 btn btn-success myAdminBtn">User Details</div>
+                    <div onClick={handleProduct} className="col-md-2 btn btn-primary myAdminBtn">Post Details</div>
+                    <div onClick={handleOrder} className="col-md-2 btn btn-secondary myAdminBtn">Order Details</div>
+                    <div onClick={handleUser} className="col-md-2 btn btn-success myAdminBtn">User Details</div>
+                    <div onClick={handlePayment} className="col-md-2 btn btn-dark myAdminBtn">Payment Details</div>
                     <div onClick={()=>{
                         history.push("/create")
-                    }} className="col-md-3 btn btn-info myAdminBtn">Create post</div>
+                    }} className="col-md-2 btn btn-info myAdminBtn">Create post</div>
                 </div>
             </div>}
             {productDetails && <table className="table table-striped">
@@ -190,6 +212,37 @@ function Admin() {
                         </tr>
                             )
                         })}
+                    </tbody>
+            </table>}
+
+            {paymentDetails && <table className="table table-striped">
+                    <thead>
+                        <tr>
+                        <th>Payments</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        </tr>
+                        <tr>
+                        <th>Bill Number</th>
+                        <th>Payment ID</th>
+                        <th>Total Price</th>
+                        <th>User ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       {payments.map((payment)=>{
+                           return(
+                        <tr key={payment.id}>
+                            <td>{payment.fields.billNumber.integerValue}</td>
+                            <td>{payment.fields.payment_id.stringValue}</td>
+                            <td>&#x20B9;{payment.fields.total.integerValue}</td>
+                            <td>{payment.fields.userId.stringValue}</td>
+                        </tr>
+                        )
+                       })}
+                       
+                            
                     </tbody>
             </table>}
             </div>: <div className="userSpanAdmin">

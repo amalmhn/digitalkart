@@ -15,6 +15,7 @@ function Order() {
   const [state, setState] = useState("")
   const [pin, setPin] = useState("")
   const [contact, setContact] = useState("")
+  const [email, setEmail] = useState("")
 
   const [nameError, setNameError] = useState("")
   const [houseError, setHouseError] = useState("")
@@ -38,9 +39,7 @@ function Order() {
 
   const billNumber = Math.floor(Math.random() * (100000 - 1000 + 1000) + 1000)
 
-  const handleOrder=(e)=>{
-
-    e.preventDefault()
+  async function handleOrder(){
 
     var nameRegex = /^[a-zA-Z ]{2,30}$/
     var houseRegex = /^[a-zA-Z0-9 ]{2,30}$/
@@ -83,9 +82,11 @@ if(nameError===true || houseError===true || streetError===true || districtError=
   || stateError===true || pinError===true || contactError===true || cartItems.length===0){
   setValid("Correct the errors and click the order button. ")
 }else{
-  
+
+   
   setOption(true)
   setValid2("Order is placing, please wait... ")
+  
   cartItems.map((itm)=>{
     return(
     firebase.firestore().collection('orders').add({
@@ -106,15 +107,63 @@ if(nameError===true || houseError===true || streetError===true || districtError=
       orderDate: date.toDateString(),
       billNumber
   
-    }).then(()=>{
-    
-      history.push("/")
-      window.location.reload()
     }).catch((error)=>{
       setError(error.message)
     })
     
     )})
+
+    const loadScript=(src)=>{
+      return new Promise(resolve=>{
+        const script = document.createElement('script')
+        script.src = src
+        document.body.appendChild(script)
+        script.onload=()=>{
+          resolve(true)
+        }
+        script.onerror=()=>{
+          resolve(false)
+        }
+      })
+    }
+  
+    const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js")
+  
+    if(!res){
+      alert("Razorpay failed to load")
+    }
+  
+    var options = {
+      "key": "rzp_test_W5OYzI2xpVJSu2", // Enter the Key ID generated from the Dashboard
+      "amount": totalPrice*100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Shopping",
+      "description": `order placed by - ${user.uid} -  for amount - ${totalPrice} , BILL NUMBER : ${billNumber}`,
+      "image": "https://example.com/your_logo",
+      "handler": function (response){
+          firebase.firestore().collection('payment').add({
+            payment_id:response.razorpay_payment_id,
+            userId:user.uid,
+            total:totalPrice,
+            totalProducts:cartItems.length,
+            billNumber
+          })
+
+          history.push("/")
+          window.location.reload()
+      },
+      "prefill": {
+          "name": name,
+          "email": email,
+          "contact": `91${contact}`
+      },
+      
+      
+  }
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open()  
+
+    
   
 }
 
@@ -182,6 +231,13 @@ if(nameError===true || houseError===true || streetError===true || districtError=
               <br />
               {option ? "" : <span className="errorSpan">{stateError}</span>}
               <br/>
+              <label htmlFor="email">Email</label>
+              <br />
+              <input className="input2" type="email"
+              value={email}
+              onChange={(e)=>{setEmail(e.target.value)}}
+              id="email" name="Price" />
+              <br /><br/>
               <label htmlFor="pin">PIN Code</label>
               <br />
               <input className="input2" type="number"
