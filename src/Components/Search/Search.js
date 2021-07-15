@@ -25,7 +25,7 @@ function Search() {
             {searchItem.map((product)=>{
                 return(
 
-                <div key={product.id} className="col-md-3">
+                <div key={product.id} className="col-12 col-sm-6 col-md-3">
           <div            
             className="card"
             onClick={()=>{

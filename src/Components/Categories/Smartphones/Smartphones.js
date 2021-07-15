@@ -10,8 +10,6 @@ function Smartphones() {
     const {setPostDetails} = useContext(PostContext)
     const history = useHistory()
 
-    console.log(smartphones)
-
     useEffect(() => {
         axios.get("https://firestore.googleapis.com/v1/projects/digitalkart-1785a/databases/(default)/documents/products/").then((res)=>{
             const all = res.data.documents.map((product)=>{
@@ -38,7 +36,7 @@ function Smartphones() {
             {smartphones.map((product,index)=>{
                 return(
 
-                <div key={index} className="col-md-3">
+                <div key={index} className="col-12 col-sm-6 col-md-3">
           <div            
             onClick={()=>{
                 setPostDetails(product)

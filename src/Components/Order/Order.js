@@ -112,10 +112,8 @@ if(nameError===true || houseError===true || streetError===true || districtError=
   
     }).then(()=>{
       emailjs.sendForm('gmail', 'template_ukpeseu', e.target, 'user_lvSOpwAVNl2TxWILVWkcT')
-      .then((result) => {
-          console.log(result.text);
-      }, (error) => {
-          console.log(error.text);
+      .catch((error) => {
+          alert(error.text);
       });
     }).catch((error)=>{
       setError(error.message)
@@ -149,7 +147,6 @@ if(nameError===true || houseError===true || streetError===true || districtError=
       "currency": "INR",
       "name": "Shopping",
       "description": `order placed by - ${user.uid} -  for amount - ${totalPrice} , BILL NUMBER : ${billNumber}`,
-      "image": "https://example.com/your_logo",
       "handler": function (response){
           firebase.firestore().collection('payment').add({
             payment_id:response.razorpay_payment_id,

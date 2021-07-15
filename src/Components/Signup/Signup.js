@@ -63,7 +63,6 @@ if(error===true || phoneError1===true || passwordError1===true){
       })
     })
   }).catch((error) => {
-    console.error(error.message);
     setError(error.message)
     setInterval(function(){ window.location.reload() }, 3000);
 });

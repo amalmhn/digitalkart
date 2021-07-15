@@ -136,8 +136,9 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
         <div>
         
           <div>
-          {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <div className="centerDiv">
             
+          {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <div className="centerDiv">
+          
               <label htmlFor="fname">Name</label>
               <br />
               <input
