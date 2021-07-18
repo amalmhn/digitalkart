@@ -17,7 +17,7 @@ function OrderDetails() {
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
+                    <tr>
                         <th>Bill number :</th>                       
                         <td>{orderView.fields.billNumber.integerValue}</td>
                     </tr>

@@ -24,7 +24,6 @@ function ForgetPassword() {
     return (
         <div>
         <div className="loginParentDiv">
-            
         <form onSubmit={handleSubmit} >
           <label htmlFor="fname"> <strong> Enter your registered Email here</strong></label>
           <br/>
@@ -42,11 +41,9 @@ function ForgetPassword() {
           <br />
           
           <button className="btn btn-success">Submit</button>
-          
-      <div className="messageSpan">
+          <div className="messageSpan">
           <span><strong>{sent}</strong></span>
-          
-      </div>
+          </div>
         </form>
       <div  className="errorSpanForget">
       <span><strong>{error}</strong></span>

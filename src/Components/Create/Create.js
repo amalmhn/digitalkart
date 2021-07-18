@@ -33,8 +33,6 @@ function Create() {
 
   const date = new Date()
 
-
-
   const handleSubmit=(e)=>{
 
     e.preventDefault()
@@ -49,37 +47,36 @@ function Create() {
     if((name==="")||(nameRegex.test(name)===false)){
       setNameError("Min 2 & max 30 characters without special characters")
       var nameError1 = true;
-  }
-  if((price==="")||(priceRegex.test(price)===false)){
-    setPriceError("Min 2 & max 10 digits without spaces")
-    var priceError1 = true;
-}
-if((ram==="")||(ramRegex.test(ram)===false)){
-  setRamError("Min 2 & max 20 characters, Only alphabets")
-  var ramError1 = true;
-}
-if((memory==="")||(memoryRegex.test(memory)===false)){
-  setMemoryError("Memory must be min 2 & max 10 characters")
-  var memoryError1 = true;
-}
-if((brand==="")||(brandRegex.test(brand)===false)){
-  setBrandError("Min 2 & max 20 characters without spaces")
-  var brandError1 = true;
-}
-if((description==="")||(descriptionRegex.test(description)===false)){
-  setDescriptionError("Description must be min 2 & max 250 characters")
-  var descError1 = true;
-}
-if(image===null){
-  setImageError("Image field should not be empty")
-  var imgError1 = true;
-}
-if(nameError1===true || priceError1===true || ramError1===true || memoryError1===true || brandError1===true || descError1===true || imgError1 === true){
-  setValid("Invalid Details!")
-}else{
-
-    setOption(true);
-    setValid2("Submitting the product details, please wait...")
+    }
+    if((price==="")||(priceRegex.test(price)===false)){
+      setPriceError("Min 2 & max 10 digits without spaces")
+      var priceError1 = true;
+    }
+    if((ram==="")||(ramRegex.test(ram)===false)){
+      setRamError("Min 2 & max 20 characters, Only alphabets")
+      var ramError1 = true;
+    }
+    if((memory==="")||(memoryRegex.test(memory)===false)){
+      setMemoryError("Memory must be min 2 & max 10 characters")
+      var memoryError1 = true;
+    }
+    if((brand==="")||(brandRegex.test(brand)===false)){
+      setBrandError("Min 2 & max 20 characters without spaces")
+      var brandError1 = true;
+    }
+    if((description==="")||(descriptionRegex.test(description)===false)){
+      setDescriptionError("Description must be min 2 & max 250 characters")
+      var descError1 = true;
+    }
+    if(image===null){
+      setImageError("Image field should not be empty")
+      var imgError1 = true;
+    }
+    if(nameError1===true || priceError1===true || ramError1===true || memoryError1===true || brandError1===true || descError1===true || imgError1 === true){
+      setValid("Invalid Details!")
+    }else{
+      setOption(true);
+      setValid2("Submitting the product details, please wait...")
     
     firebase.storage().ref(`/image/${image.name}`).put(image).then(({ref})=>{
       ref.getDownloadURL().then((url)=>{
@@ -110,11 +107,8 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
 }
     return (
         <div>
-        
-        
-          {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <div className="centerDiv1">
-            
-              <label htmlFor="fname">Name</label>
+        {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <div className="centerDiv1">
+        <label htmlFor="fname">Name</label>
               <br />
               <input
                 className="input"
@@ -148,7 +142,6 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               name="Price" />
               <br />
               {option ? "" : <span className="errorSpan">{priceError}</span>}
-              
               <br/>
               <label htmlFor="fname">Color</label>
               <br />
@@ -158,7 +151,6 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               id="ram" name="Price" />
               <br />
               {option ? "" : <span className="errorSpan">{ramError}</span>}
-              
               <br/>
               <label htmlFor="fname">Memory</label>
               <br />
@@ -168,7 +160,6 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               id="memory" name="Price" />
               <br />
               {option ? "" : <span className="errorSpan">{memoryError}</span>}
-              
               <br/>
               <label htmlFor="fname">Brand</label>
               <br />
@@ -178,9 +169,8 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               id="brand" name="Price" />
               <br />
               {option ? "" : <span className="errorSpan">{brandError}</span>}
-              
-            <br />
-            <label htmlFor="fname">Description</label>
+              <br />
+              <label htmlFor="fname">Description</label>
               <br />
               <input className="input" type="text"
               value={description}
@@ -189,25 +179,22 @@ if(nameError1===true || priceError1===true || ramError1===true || memoryError1==
               <br />
               {option ? "" : <span className="errorSpan">{descriptionError}</span>}
               <br/>
-            <img alt="Posts" width="200px" height="200px" src={image ? URL.createObjectURL(image) : ""}></img>
-            
+              <img alt="Posts" width="200px" height="200px" src={image ? URL.createObjectURL(image) : ""}></img>
               <br />
-              
               <input onChange={(e)=>{setImage(e.target.files[0])}} type="file" />
               <br/>
               {option ? "" : <span className="errorSpan">{imageError}</span>}
               <button onClick={handleSubmit} className="uploadBtn btn btn-success">Upload and Submit</button>
-            <div>
-            {option ? <span className="loadingSpan"><strong>{valid2}</strong></span> :<span className="errorSpan">{valid}</span>}
-            </div>
-            <span className="errorSpan">{error}</span>
-          </div> : <div className="userSpanCreate">
-            <br/><br/><br/><br/><br/>
-            <span><strong>Access only for Admin</strong></span>
-            <br/><br/><br/><br/><br/>
-            </div>}
-        
-        </div>
+              <div>
+              {option ? <span className="loadingSpan"><strong>{valid2}</strong></span> :<span className="errorSpan">{valid}</span>}
+              </div>
+              <span className="errorSpan">{error}</span>
+              </div> : <div className="userSpanCreate">
+              <br/><br/><br/><br/><br/>
+              <span><strong>Access only for Admin</strong></span>
+              <br/><br/><br/><br/><br/>
+              </div>}
+              </div>
     )
 }
 

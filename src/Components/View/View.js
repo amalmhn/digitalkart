@@ -7,7 +7,6 @@ import './View.css'
 
 function View() {
 
-
   const {postDetails} = useContext(PostContext)
   const {user} = useContext(AuthContext)
   const {cartItems,setCartItems} = useContext(CartContext)
@@ -43,24 +42,21 @@ function View() {
           <span>Brand : {postDetails.fields.brand.stringValue}</span><br/>
           <span>Category : {postDetails.fields.category.stringValue}</span><br/>
           <span>Description :- {postDetails.fields.description.stringValue}</span><br/>
-
-        </div>
+      </div>
         {user ?
-        
         <button onClick={()=>{
           onAdd(postDetails)
           history.push("/")
         }} className="btn btn-success cartBtn">Add to cart</button>
-         :
-        <Link to="/login">
+         : <Link to="/login">
         <button className="btn btn-primary cartBtn">Please login to place the order</button>
         </Link>}
       </div>
-    </div> : <div className="userSpanView">
-            <br/><br/><br/>
-            <span><strong>Please select a product to show the details</strong></span>
-            <br/><br/>
-            </div>}
+      </div> : <div className="userSpanView">
+          <br/><br/><br/>
+          <span><strong>Please select a product to show the details</strong></span>
+          <br/><br/>
+          </div>}
     </div>
     )
 }

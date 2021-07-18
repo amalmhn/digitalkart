@@ -29,23 +29,20 @@ function Smartphones() {
       <div className="moreView">
         <div className="heading">
           <span>Smartphones</span>
-          
         </div>
         <div className="cards">
           <div className="row">
             {smartphones.map((product,index)=>{
-                return(
-
-                <div key={index} className="col-12 col-sm-6 col-md-3">
-          <div            
+            return(
+            <div key={index} className="col-12 col-sm-6 col-md-3">
+            <div            
             onClick={()=>{
                 setPostDetails(product)
                 history.push("/view")
             }
             }
             className="card"
-          >
-            
+            >
             <div className="image">
               <img  src={product.fields.url.stringValue} alt="post" />
             </div>
@@ -58,19 +55,14 @@ function Smartphones() {
               <span> <strong> Posted On : </strong>{product.fields.createdAt.stringValue}</span>
             </div>
           </div>
-          
           </div>
                 )
             })}
-          
-            
-          
           </div>
-        </div>
-      </div>
-      
-    </div>
-    </div>
+          </div>
+          </div>
+          </div>
+          </div>
     )
 }
 

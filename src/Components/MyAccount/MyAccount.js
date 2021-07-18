@@ -41,9 +41,7 @@ function MyAccount() {
               setTableData(false)
          })
      }
-
-     
-
+    
     return (
         <div>
             <br/><br/><br/><br/><br/>
@@ -53,43 +51,33 @@ function MyAccount() {
                     <div onClick={handleAccount} className="col-md-6 btn btn-primary myAcntBtn" >Account Details</div>
                     <div onClick={handleOrder} className="col-md-6 btn btn-success myAcntBtn" >Order Details</div>
                 </div>}
-                    
-                    
-                    
-                   {tableData && <table className="table table-striped">
-                    <thead>
-                        <tr>
-                            <th colSpan='2'>Account Details</th>
-                            <th></th>
-                        </tr>
-                        
-                    </thead>
-                    
-                        
-                    {account.map((product)=>{
-                        return(
-
-                    <tbody key={product.id}> 
-                        <tr>
-                            <th>Username:</th>
-                            <td>{product.fields.username.stringValue}</td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <th>Phone number:</th>
-                            <td>{product.fields.phone.stringValue}</td>
-                            <td></td>
-                        </tr>
-                        
-                    </tbody>
-                        )
+            
+            {tableData && <table className="table table-striped">
+                <thead>
+                    <tr>
+                    <th colSpan='2'>Account Details</th>
+                    <th></th>
+                    </tr>
+                </thead>
+            {account.map((product)=>{
+                return(
+                <tbody key={product.id}> 
+                    <tr>
+                        <th>Username:</th>
+                        <td>{product.fields.username.stringValue}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Phone number:</th>
+                        <td>{product.fields.phone.stringValue}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+                    )
                     })} 
-                    </table>}
+                </table>}
                         
-                    
-
-                    {orderData && 
+                {orderData && 
                     <table className="table table-striped">
                     <thead>
                         <tr>
@@ -104,14 +92,10 @@ function MyAccount() {
                             <th>Order ID</th>
                             <th></th>
                         </tr>
-                        
                     </thead>
-
-                    {order.map((product)=>{
-                        return(
-
+                {order.map((product)=>{
+                    return(
                     <tbody key={product.id}>
-                        
                         <tr>
                             <td>{product.fields.productName.stringValue}</td>
                             <td>{product.fields.billNumber.integerValue}</td>
@@ -119,22 +103,18 @@ function MyAccount() {
                             <td>{product.id}</td>
                             <td></td>
                         </tr>
-                        
-                        
                     </tbody>
                         )
                     })}
                     </table>}
                     </div>
-                    
-                </div> : 
-                <div className="userSpanLogin">
+                    </div> : 
+                    <div className="userSpanLogin">
                     <br/><br/><br/>
-                <span><strong>Please Login first</strong></span>
-                </div>
-                }
-            </div>
-        
+                        <span><strong>Please Login first</strong></span>
+                    </div>
+                    }
+                    </div>
     )
 }
 

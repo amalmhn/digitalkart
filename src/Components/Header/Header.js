@@ -72,20 +72,16 @@ function Header() {
             Logout</span>}
           
         {user && <div className="loginPage">
-          
           <button onClick={()=>{
             history.push("/cart")
           }} className="btn btn-warning">
           <span>Cart <span style={{color:'red'}}> <strong> {cartItems.length !== 0 ? cartItems.length : ""} </strong> </span> </span>
           </button>
-          
-        </div>}
+          </div>}
         
         <Link to="/myaccount" className="linkComponent">
         {user && <div className="sellMenu">
-          
-        <span>My Account</span>
-          
+          <span>My Account</span>
         </div>}
         </Link>
       </div>

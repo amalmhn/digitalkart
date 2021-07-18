@@ -9,13 +9,11 @@ function Banner() {
   const {user} = useContext(AuthContext)
   const history = useHistory()
   
-
-    return (
+  return (
         
         <div className="bannerParentDiv">
-      <div className="bannerChildDiv">
+        <div className="bannerChildDiv">
         <div className="menuBar">
-          
           <div className="otherQuickOptions">
             <br/><br/>
             <span> <strong>Categories :</strong>  </span>
@@ -31,7 +29,6 @@ function Banner() {
             {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <button onClick={()=>{
               history.push("/admin")
             }} className="btn btn-primary adminBtn">Admin Page</button> : ""}
-            
           </div>
         </div>
         <div className="banner">
@@ -41,7 +38,6 @@ function Banner() {
           />
         </div>
       </div>
-      
     </div>
     )
 }

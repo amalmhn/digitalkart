@@ -26,12 +26,10 @@ function Login() {
       setPasswordError("Invalid Password!");
       var error = true;
     }
-
     if(error===true){
       setValid("Invalid Details!")
       setInterval(function(){ window.location.reload() }, 3000);
     }else{
-
       setOption(true);
       setValid2("Logging in, please wait...")
 
@@ -80,7 +78,6 @@ function Login() {
           <span className="validSpan" >{passwordError}</span>
           <br />
           <button className="btn btn-success">Login</button>
-          
         </form>
         {option && <span className="loadingSpan"><strong>{valid2}</strong></span>} 
         <br/>
@@ -91,13 +88,10 @@ function Login() {
         <Link to="/forget" className="linkLogin">
         <span className="signup"> <strong>Forget Password? </strong> </span>
         </Link>
-        
         <span className="validSpan">{valid}</span>
-      <br/>
-      
-      
+        <br/>
+        </div>
       </div>
-    </div>
     )
 }
 

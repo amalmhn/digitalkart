@@ -28,7 +28,6 @@ function Admin() {
         e.preventDefault();
         axios.get("https://firestore.googleapis.com/v1/projects/digitalkart-1785a/databases/(default)/documents/products/").then((res)=>{
             const allPost= res.data.documents.map((product)=>{
-                
                 return{
                   ...product,id:product.name.substr(66)
                 }
@@ -241,8 +240,6 @@ function Admin() {
                         </tr>
                         )
                        })}
-                       
-                            
                     </tbody>
             </table>}
             </div>: <div className="userSpanAdmin">

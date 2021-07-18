@@ -45,7 +45,6 @@ function Footer() {
         </div>
       </div>
       <div className="footer">
-        
         <p>Free Classifieds in India. © DigitalKart</p>
       </div>
     </div>

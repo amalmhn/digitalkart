@@ -12,7 +12,6 @@ function Signup() {
   const [password, setPassword] = useState('')
   
   const [error, setError] = useState('')
-
   const [userError, setUserError] = useState('')
   const [phoneError, setPhoneError] = useState('')
   const [passwordError, setPasswordError] = useState('')
@@ -34,27 +33,25 @@ function Signup() {
     if((username==="")||(usernameRegex.test(username)===false)){
       setUserError("Min 3 & max 10 characters and without special characters");
       var error = true;
-  }
-  if((phone==="")||(phoneRegex.test(phone)===false)){
-    setPhoneError("Phone number should be 10 digits");
-    var phoneError1 = true;
-}
-if((password==="")||(passwordRegex.test(password)===false)){
-  setPasswordError("Min 6 & max 15 characters, 1 letter, 1 number and 1 special character");
-  var passwordError1 = true;
-}
-
-if(error===true || phoneError1===true || passwordError1===true){
-  setValid("Invalid Details!")
-  setInterval(function(){ window.location.reload() }, 3000);
-}else{
-
-  setOption(true);
-  setValid2("Creating account, please wait...")
-
-  firebase.auth().createUserWithEmailAndPassword(email,password).then((result)=>{
+    }
+    if((phone==="")||(phoneRegex.test(phone)===false)){
+      setPhoneError("Phone number should be 10 digits");
+      var phoneError1 = true;
+    }
+    if((password==="")||(passwordRegex.test(password)===false)){
+      setPasswordError("Min 6 & max 15 characters, 1 letter, 1 number and 1 special character");
+      var passwordError1 = true;
+    }
+    if(error===true || phoneError1===true || passwordError1===true){
+      setValid("Invalid Details!")
+      setInterval(function(){ window.location.reload() }, 3000);
+    }else{
+      setOption(true);
+      setValid2("Creating account, please wait...")
+    
+    firebase.auth().createUserWithEmailAndPassword(email,password).then((result)=>{
     result.user.updateProfile({displayName:username}).then(()=>{
-      firebase.firestore().collection('users').add({
+    firebase.firestore().collection('users').add({
         id:result.user.uid,
         username:username,
         phone:phone
@@ -67,10 +64,7 @@ if(error===true || phoneError1===true || passwordError1===true){
     setInterval(function(){ window.location.reload() }, 3000);
 });
 }
-
-    
-
-  }
+}
     return (
         <div>
       <div className="signupParentDiv">
@@ -145,11 +139,8 @@ if(error===true || phoneError1===true || passwordError1===true){
         <Link to="/login" className="linkSignup">
         <span className="loginLink"> <strong> Login</strong> </span>
         </Link>
-      
-        
-      </div>
-      
-    </div>
+        </div>
+        </div>
     )
 }
 

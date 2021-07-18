@@ -13,7 +13,7 @@ ReactDOM.render(
     <Authentication>
     <App />
     </Authentication>
-    </FirebaseContext.Provider>
+  </FirebaseContext.Provider>
   ,
   document.getElementById('root')
 );

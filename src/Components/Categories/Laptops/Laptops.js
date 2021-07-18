@@ -26,18 +26,15 @@ function Laptops() {
         <div>
             <br/><br/><br/><br/><br/>
         <div className="postParentDiv">
-      <div className="moreView">
+        <div className="moreView">
         <div className="heading">
           <span>Laptops</span>
-          
         </div>
         <div className="cards">
           <div className="row">
-            
-        {laptops.map((product,index)=>{
+          {laptops.map((product,index)=>{
             return(
-
-                <div key={index} className="col-12 col-sm-6 col-md-3">
+          <div key={index} className="col-12 col-sm-6 col-md-3">
           <div 
             onClick={()=>{
                 setPostDetails(product)
@@ -45,33 +42,26 @@ function Laptops() {
             }}           
             className="card"
           >
-            
-            <div className="image">
-              <img  src={product.fields.url.stringValue} alt="post" />
-            </div>
-            <div className="content">
+          <div className="image">
+          <img  src={product.fields.url.stringValue} alt="post" />
+          </div>
+          <div className="content">
               <p className="rate">{product.fields.name.stringValue}</p>
               <span className="kilometer">&#x20B9;{product.fields.price.stringValue}</span>
               <p className="name">{product.fields.brand.stringValue}</p>
-            </div>
-            <div className="date">
-              <span> <strong> Posted On : </strong>{product.fields.createdAt.stringValue}</span>
-            </div>
           </div>
-          
+          <div className="date">
+              <span> <strong> Posted On : </strong>{product.fields.createdAt.stringValue}</span>
+          </div>
+          </div>
           </div>
             )
         })}
-                
-          
-            
-          
           </div>
-        </div>
-      </div>
-      
-    </div>
-    </div>
+          </div>
+          </div>
+          </div>
+          </div>
     )
 }
 

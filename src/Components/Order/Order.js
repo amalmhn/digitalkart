@@ -55,44 +55,41 @@ function Order() {
     if((name==="")||(nameRegex.test(name)===false)){
       setNameError("Only alphabets, min 2 & max 30 characters");
       var nameError = true;
-  }
-  if((house==="")||(houseRegex.test(house)===false)){
-    setHouseError("Min 2 & max 30 characters, no special characters");
-    var houseError = true;
-}
-if((street==="")||(streetRegex.test(street)===false)){
-  setStreetError("Min 2 & max 50 characters, no special characters");
-  var streetError = true;
-}
-if((district==="")||(districtRegex.test(district)===false)){
-  setDistrictError("Min 2 & max 50 characters, no special characters");
-  var districtError = true;
-}
-if((state==="")||(stateRegex.test(state)===false)){
-  setStateError("Min 2 & max 50 characters, no special characters");
-  var stateError = true;
-}
-if((pin==="")||(pinRegex.test(pin)===false)){
-  setPinError("PIN should be 6 digits");
-  var pinError = true;
-}
-if((contact==="")||(contactRegex.test(contact)===false)){
-  setContactError("Contact number should be 10 digits");
-  var contactError = true;
-}
+    }
+    if((house==="")||(houseRegex.test(house)===false)){
+      setHouseError("Min 2 & max 30 characters, no special characters");
+      var houseError = true;
+    }
+    if((street==="")||(streetRegex.test(street)===false)){
+      setStreetError("Min 2 & max 50 characters, no special characters");
+      var streetError = true;
+    }
+    if((district==="")||(districtRegex.test(district)===false)){
+      setDistrictError("Min 2 & max 50 characters, no special characters");
+      var districtError = true;
+    }
+    if((state==="")||(stateRegex.test(state)===false)){
+      setStateError("Min 2 & max 50 characters, no special characters");
+      var stateError = true;
+    }
+    if((pin==="")||(pinRegex.test(pin)===false)){
+      setPinError("PIN should be 6 digits");
+      var pinError = true;
+    }
+    if((contact==="")||(contactRegex.test(contact)===false)){
+      setContactError("Contact number should be 10 digits");
+      var contactError = true;
+    }
+    if(nameError===true || houseError===true || streetError===true || districtError===true
+      || stateError===true || pinError===true || contactError===true || cartItems.length===0){
+      setValid("Correct the errors and click the order button. ")
+    }else{
+      setOption(true)
+      setValid2("Order is placing, please wait... ")
+      cartItems.map((itm)=>{
+      return(
 
-if(nameError===true || houseError===true || streetError===true || districtError===true
-  || stateError===true || pinError===true || contactError===true || cartItems.length===0){
-  setValid("Correct the errors and click the order button. ")
-}else{
-
-   
-  setOption(true)
-  setValid2("Order is placing, please wait... ")
-  
-  cartItems.map((itm)=>{
-    return(
-    firebase.firestore().collection('orders').add({
+      firebase.firestore().collection('orders').add({
       name,
       house,
       street,
@@ -109,8 +106,7 @@ if(nameError===true || houseError===true || streetError===true || districtError=
       totalProducts:cartItems.length,
       orderDate: date.toDateString(),
       billNumber
-  
-    }).then(()=>{
+      }).then(()=>{
       emailjs.sendForm('gmail', 'template_ukpeseu', e.target, 'user_lvSOpwAVNl2TxWILVWkcT')
       .catch((error) => {
           alert(error.text);
@@ -118,8 +114,7 @@ if(nameError===true || houseError===true || streetError===true || districtError=
     }).catch((error)=>{
       setError(error.message)
     })
-    
-    )})
+)})
 
     const loadScript=(src)=>{
       return new Promise(resolve=>{
@@ -164,25 +159,15 @@ if(nameError===true || houseError===true || streetError===true || districtError=
           "email": email,
           "contact": `91${contact}`
       },
-      
-      
   }
     const paymentObject = new window.Razorpay(options);
     paymentObject.open()  
-
-    
-  
-}
-
-    
-
   }
+}
 
     return (
         <div>
-        
-        
-          {user ? <div className="centerDiv2">
+        {user ? <div className="centerDiv2">
           {cartItems.length===0?<span className="errorSpan"><strong>Error! cart is empty.
              Add items to cart and try again.</strong></span>:""}
              <br/>
@@ -263,21 +248,17 @@ if(nameError===true || houseError===true || streetError===true || districtError=
               id="contact" name="Contact" />
               <br />
               {option ? "" : <span className="errorSpan">{contactError}</span>}
-           
               <button className="uploadBtn2 btn btn-success">Place your Order</button>
               </form>
-            <br/>
-            {option?<span className="loadingSpan"> <strong>{valid2}</strong> </span>
-             :<span className="errorSpan">{valid}</span> }
-             
-             <span className="errorSpan">{error}</span>            
-            
-          </div> : <div className="userSpanLogin">
-            <br/><br/><br/><br/><br/>
-            <span><strong>Please Login first</strong></span>
-            </div>}
-       
-        </div>
+              <br/>
+              {option?<span className="loadingSpan"> <strong>{valid2}</strong> </span>
+              :<span className="errorSpan">{valid}</span> }
+              <span className="errorSpan">{error}</span>            
+              </div> : <div className="userSpanLogin">
+              <br/><br/><br/><br/><br/>
+              <span><strong>Please Login first</strong></span>
+              </div>}
+            </div>
     )
 }
 

@@ -40,62 +40,56 @@ function Cart() {
             <br/><br/><br/><br/><br/>
             <div className="cartTable">
          {cartItems.length===0?
-
-      <span className="emptyCartSpan"><strong>Cart is empty</strong></span>
-
-   :<table className="table">
-  <thead>
-    <tr>
-      <th scope="col">Product Name</th>
-      <th scope="col">Brand</th>
-      <th scope="col">Color</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Total</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-   {cartItems.map((product,index)=>{
-       return(
-
-    <tr key={index}>
-      <th scope="row">{product.fields.name.stringValue}</th>
-      <td>{product.fields.brand.stringValue}</td>
-      <td>{product.fields.ram.stringValue}</td>
-      <td>{product.qty}</td>
-      <td>&#x20B9;{product.fields.price.stringValue}</td>
-      <td><button onClick={()=>handleAdd(product)} className="btn btn-success">Add</button></td>
-      <td><button onClick={()=>handleRemove(product)} className="btn btn-danger">Remove</button></td>
-    </tr>
-       )
-   })}
-  </tbody>
-  <tfoot>
-  <tr>
-      <th scope="row">TOTAL</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><strong>&#x20B9;{itemsPrice}</strong></td>
-    </tr>
-  </tfoot>
-</table>
-
-}
-<div className="orderBtn">
-    {cartItems.length===0? "" : 
-    
-    <button onClick={()=>{
-        setTotalPrice(itemsPrice)
-        history.push("/order")
-    }} className="btn btn-primary">Place your order</button>
-    
-    }
-</div>
-</div>
-
-        </div>
+            <span className="emptyCartSpan"><strong>Cart is empty</strong></span>
+            :<table className="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Color</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {cartItems.map((product,index)=>{
+                    return(
+                    <tr key={index}>
+                    <th scope="row">{product.fields.name.stringValue}</th>
+                    <td>{product.fields.brand.stringValue}</td>
+                    <td>{product.fields.ram.stringValue}</td>
+                    <td>{product.qty}</td>
+                    <td>&#x20B9;{product.fields.price.stringValue}</td>
+                    <td><button onClick={()=>handleAdd(product)} className="btn btn-success">Add</button></td>
+                    <td><button onClick={()=>handleRemove(product)} className="btn btn-danger">Remove</button></td>
+                    </tr>
+                    )
+                })}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th scope="row">TOTAL</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><strong>&#x20B9;{itemsPrice}</strong></td>
+                    </tr>
+                </tfoot>
+                </table>
+                }
+                <div className="orderBtn">
+                    {cartItems.length===0? "" : 
+                    <button onClick={()=>{
+                        setTotalPrice(itemsPrice)
+                        history.push("/order")
+                    }} className="btn btn-primary">Place your order</button>
+                    
+                    }
+                </div>
+                </div>
+                </div>
     )
 }
 
