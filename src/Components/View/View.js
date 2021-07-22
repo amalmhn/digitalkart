@@ -18,7 +18,7 @@ function View() {
       setCartItems(
         cartItems.map(itm=>
           itm.id === product.id ? {...exist, qty:exist.qty+1} : itm));
-    }else{
+        }else{
       setCartItems([...cartItems,{...product,qty:1}])
     }
   }

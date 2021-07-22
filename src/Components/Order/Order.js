@@ -88,7 +88,6 @@ function Order() {
       setValid2("Order is placing, please wait... ")
       cartItems.map((itm)=>{
       return(
-
       firebase.firestore().collection('orders').add({
       name,
       house,
@@ -97,6 +96,7 @@ function Order() {
       state,
       pin,
       contact,
+      email,
       productId:itm.id,
       productName:itm.fields.name.stringValue,
       userId:user.uid,
@@ -106,15 +106,15 @@ function Order() {
       totalProducts:cartItems.length,
       orderDate: date.toDateString(),
       billNumber
-      }).then(()=>{
-      emailjs.sendForm('gmail', 'template_ukpeseu', e.target, 'user_lvSOpwAVNl2TxWILVWkcT')
-      .catch((error) => {
-          alert(error.text);
-      });
-    }).catch((error)=>{
+      }).catch((error)=>{
       setError(error.message)
     })
 )})
+
+emailjs.sendForm('gmail', 'template_ukpeseu', e.target, 'user_lvSOpwAVNl2TxWILVWkcT')
+.catch((error) => {
+    alert(error.text);
+});
 
     const loadScript=(src)=>{
       return new Promise(resolve=>{

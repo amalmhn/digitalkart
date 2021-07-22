@@ -90,7 +90,7 @@ function Admin() {
 
     const handleDelete=(product)=>{
         firebase.firestore().collection('products').doc(product.id).delete().then(()=>{
-            window.location.reload()
+            history.push("/")
         })
     }
 
@@ -106,7 +106,7 @@ function Admin() {
                     <div onClick={handlePayment} className="col-md-2 btn btn-dark myAdminBtn">Payment Details</div>
                     <div onClick={()=>{
                         history.push("/create")
-                    }} className="col-md-2 btn btn-info myAdminBtn">Create post</div>
+                    }} className="col-md-2 btn btn-info myAdminBtn">Create Product</div>
                 </div>
             </div>}
             {productDetails && <table className="table table-striped">

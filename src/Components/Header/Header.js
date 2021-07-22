@@ -28,7 +28,9 @@ function Header() {
           ...product,id:product.name.substr(66)
         }
       })
-      const filterData = allSearch.filter(itm=> itm.fields.brand.stringValue===search.toUpperCase())
+      const filterData = allSearch.filter(
+        itm=> itm.fields.brand.stringValue.includes(search.toUpperCase())
+        )
       setSearchItem(filterData)
       history.push("/search")
     })

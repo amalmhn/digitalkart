@@ -50,6 +50,10 @@ function OrderDetails() {
                         <td>{orderView.fields.contact.stringValue}</td>
                     </tr>
                     <tr>
+                        <th>Email :</th>                       
+                        <td>{orderView.fields.email.stringValue}</td>
+                    </tr>
+                    <tr>
                         <th>Product name :</th>                       
                         <td>{orderView.fields.productName.stringValue}</td>
                     </tr>
