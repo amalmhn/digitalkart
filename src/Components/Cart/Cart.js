@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import { CartContext } from '../../Store/CartContext'
 import { TotalContext } from '../../Store/TotalContext';
@@ -12,6 +12,17 @@ function Cart() {
     const history = useHistory()
 
     const itemsPrice = cartItems.reduce((a,c)=> a + c.fields.price.stringValue* c.qty , 0);
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem("cart"))
+        if(cartItems.length===0){
+            setCartItems(items)
+        }
+    }, [])// eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        localStorage.setItem("cart",JSON.stringify(cartItems))
+    }, [cartItems])
 
     const handleAdd=(product)=>{
         const exist = cartItems.find(x=> x.id===product.id);
@@ -44,6 +55,7 @@ function Cart() {
             :<table className="table">
                 <thead>
                     <tr>
+                    <th scope="col">Product</th>
                     <th scope="col">Product Name</th>
                     <th scope="col">Brand</th>
                     <th scope="col">Color</th>
@@ -57,7 +69,10 @@ function Cart() {
                 {cartItems.map((product,index)=>{
                     return(
                     <tr key={index}>
-                    <th scope="row">{product.fields.name.stringValue}</th>
+                    <td style={{width:"25%"}}>
+                        <img style={{width:"25%"}} src={product.fields.url.stringValue} alt="product"/>
+                    </td>
+                    <th>{product.fields.name.stringValue}</th>
                     <td>{product.fields.brand.stringValue}</td>
                     <td>{product.fields.ram.stringValue}</td>
                     <td>{product.qty}</td>
@@ -79,15 +94,30 @@ function Cart() {
                 </tfoot>
                 </table>
                 }
-                <div className="orderBtn">
-                    {cartItems.length===0? "" : 
-                    <button onClick={()=>{
+                {itemsPrice>40000 ? <div>
+                    <div className="transLimit" >
+                    <span className="transactionLimit"><strong>Transaction limit exceeded!</strong></span><br/>
+                    </div>
+                    <div className="transLimit2">
+                    <span><strong>The maximum transaction limit for single transaction is &#x20B9;40000</strong></span>
+                    </div>
+                </div> : <div className="orderBtn">
+                    {cartItems.length===0? "" :
+                    <div> 
+                    <button 
+                    style={{marginLeft:"9px"}}
+                     onClick={()=>{
                         setTotalPrice(itemsPrice)
                         history.push("/order")
-                    }} className="btn btn-primary">Place your order</button>
-                    
+                    }} className="btn btn-primary">Place your order</button><br/>
+                    <button 
+                    onClick={()=>{
+                        history.push("/")
+                    }}
+                    style={{marginTop:"10px"}} className="btn btn-success">Continue shopping</button>
+                    </div>
                     }
-                </div>
+                </div>}
                 </div>
                 </div>
     )

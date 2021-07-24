@@ -25,10 +25,12 @@ function Login() {
     if((password==="")||(passwordRegex.test(password)===false)){
       setPasswordError("Invalid Password!");
       var error = true;
+    }else{
+      setPasswordError("")
     }
     if(error===true){
       setValid("Invalid Details!")
-      setInterval(function(){ window.location.reload() }, 3000);
+      // setInterval(function(){ window.location.reload() }, 3000);
     }else{
       setOption(true);
       setValid2("Logging in, please wait...")
@@ -38,7 +40,7 @@ function Login() {
       }).catch((error) => {
         console.error(error.message);
         setValid(error.message)
-        setInterval(function(){ window.location.reload() }, 3000);
+        setInterval(function(){ window.location.reload() }, 5000);
     });
     }
 

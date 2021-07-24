@@ -38,7 +38,7 @@
     color: green;
   }
 
-  .userSpanLogin{
+  .userSpanLogins{
     margin-left: 500px;
     font-size: xx-large;
   }
@@ -47,7 +47,7 @@
       .centerDiv2{
           top: 520px;
       }
-      .userSpanLogin{
+      .userSpanLogins{
         margin-left: 100px;
       }
   }

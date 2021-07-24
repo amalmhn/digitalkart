@@ -7,11 +7,29 @@
     margin-left: 550px;
 }
 
+.transactionLimit{
+    color: red;
+}
+
+.transLimit{
+    margin-left:500px;
+}
+
+.transLimit2{
+    margin-left:380px;
+}
+
 @media only screen and (max-width: 1200px) {
     .emptyCartSpan{
         margin-left: 0px;
     }
     .orderBtn{
-        margin-left: 170px;
+        margin-left: 250px;
+    }
+    .transLimit{
+        margin-left: 250px;
+    }
+    .transLimit2{
+        margin-left:120px;
     }
 }

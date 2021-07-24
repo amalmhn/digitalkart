@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext , useState } from 'react';
 import './Header.css';
 import Logo from '../../Assets/DigitalKartLogo.jpeg'
 import { AuthContext } from '../../Store/AuthContext';
@@ -36,6 +36,23 @@ function Header() {
     })
   }
 
+  const onKeyUp=(e)=>{
+    if(e.keyCode===13){
+      axios.get("https://firestore.googleapis.com/v1/projects/digitalkart-1785a/databases/(default)/documents/products/").then((res)=>{
+        const allSearch = res.data.documents.map((product)=>{
+          return{
+            ...product,id:product.name.substr(66)
+          }
+        })
+        const filterData = allSearch.filter(
+          itm=> itm.fields.brand.stringValue.includes(search.toUpperCase())
+          )
+        setSearchItem(filterData)
+        history.push("/search")
+      }) 
+    }
+  }
+
   return (
     <div className="headerParentDiv">
       <div className="headerChildDiv">
@@ -49,6 +66,7 @@ function Header() {
             <input
               type="text"
               placeholder="Search brands (Eg: Apple, Samsung etc..)"
+              onKeyUp={onKeyUp}
               value={search}
               onChange={(e)=>{
                 setSearch(e.target.value)
@@ -68,17 +86,18 @@ function Header() {
           {user && <span className="logoutSpan"
            onClick={()=>{
             firebase.auth().signOut();
+            localStorage.setItem("cart",JSON.stringify([]));
             history.push("/login")
             window.location.reload()
           }} >
             Logout</span>}
           
         {user && <div className="loginPage">
-          <button onClick={()=>{
+        {cartItems.length!==0 && <button onClick={()=>{
             history.push("/cart")
           }} className="btn btn-warning">
-          <span>Cart <span style={{color:'red'}}> <strong> {cartItems.length !== 0 ? cartItems.length : ""} </strong> </span> </span>
-          </button>
+          <span>Cart<span style={{color:'red'}}> <strong> {cartItems.length !== 0 ? cartItems.length : ""} </strong> </span> </span>
+          </button>}
           </div>}
         
         <Link to="/myaccount" className="linkComponent">

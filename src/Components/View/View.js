@@ -1,4 +1,4 @@
-import React,{useContext} from 'react'
+import React,{useContext, useEffect} from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../Store/AuthContext'
 import { CartContext } from '../../Store/CartContext'
@@ -7,10 +7,22 @@ import './View.css'
 
 function View() {
 
-  const {postDetails} = useContext(PostContext)
+  const {postDetails,setPostDetails} = useContext(PostContext)
   const {user} = useContext(AuthContext)
   const {cartItems,setCartItems} = useContext(CartContext)
   const history = useHistory()
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem("product"))
+    if(postDetails===undefined){
+        setPostDetails(items)
+    }
+  }, [])// eslint-disable-line react-hooks/exhaustive-deps
+
+
+  useEffect(() => {
+    localStorage.setItem("product",JSON.stringify(postDetails))
+  }, [postDetails])
 
   const onAdd=(product)=>{
     const exist = cartItems.find(x=>x.id===product.id);
@@ -46,7 +58,7 @@ function View() {
         {user ?
         <button onClick={()=>{
           onAdd(postDetails)
-          history.push("/")
+          history.push("/cart")
         }} className="btn btn-success cartBtn">Add to cart</button>
          : <Link to="/login">
         <button className="btn btn-primary cartBtn">Please login to place the order</button>

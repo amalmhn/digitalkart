@@ -33,18 +33,23 @@ function Signup() {
     if((username==="")||(usernameRegex.test(username)===false)){
       setUserError("Min 3 & max 10 characters and without special characters");
       var error = true;
+    }else{
+      setUserError("")
     }
     if((phone==="")||(phoneRegex.test(phone)===false)){
       setPhoneError("Phone number should be 10 digits");
       var phoneError1 = true;
+    }else{
+      setPhoneError("")
     }
     if((password==="")||(passwordRegex.test(password)===false)){
       setPasswordError("Min 6 & max 15 characters, 1 letter, 1 number and 1 special character");
       var passwordError1 = true;
+    }else{
+      setPasswordError("")
     }
     if(error===true || phoneError1===true || passwordError1===true){
       setValid("Invalid Details!")
-      setInterval(function(){ window.location.reload() }, 3000);
     }else{
       setOption(true);
       setValid2("Creating account, please wait...")
@@ -61,7 +66,7 @@ function Signup() {
     })
   }).catch((error) => {
     setError(error.message)
-    setInterval(function(){ window.location.reload() }, 3000);
+    setInterval(function(){ window.location.reload() }, 6000);
 });
 }
 }

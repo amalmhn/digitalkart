@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../Store/AuthContext'
 import { CartContext } from '../../Store/CartContext'
@@ -30,11 +30,26 @@ function Order() {
   const [option, setOption] = useState(false);
   const [error, setError] = useState("");
 
-  const {cartItems} = useContext(CartContext)
-  const {totalPrice} = useContext(TotalContext)
+  const {cartItems,setCartItems} = useContext(CartContext)
+  const {totalPrice,setTotalPrice} = useContext(TotalContext)
   const {firebase} = useContext(FirebaseContext)
   const {user} = useContext(AuthContext);
   const history = useHistory()
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem("cart"))
+    const price = JSON.parse(localStorage.getItem("total"))
+    if(cartItems.length===0 || totalPrice===null){
+        setCartItems(items)
+        setTotalPrice(price)
+    }
+  }, [])// eslint-disable-line react-hooks/exhaustive-deps
+
+
+  useEffect(() => {
+    localStorage.setItem("cart",JSON.stringify(cartItems))
+    localStorage.setItem("total",JSON.stringify(totalPrice))
+  }, [cartItems,totalPrice])
 
   const date = new Date()
 
@@ -55,30 +70,44 @@ function Order() {
     if((name==="")||(nameRegex.test(name)===false)){
       setNameError("Only alphabets, min 2 & max 30 characters");
       var nameError = true;
+    }else{
+      setNameError("")
     }
     if((house==="")||(houseRegex.test(house)===false)){
       setHouseError("Min 2 & max 30 characters, no special characters");
       var houseError = true;
+    }else{
+      setHouseError("");
     }
     if((street==="")||(streetRegex.test(street)===false)){
       setStreetError("Min 2 & max 50 characters, no special characters");
       var streetError = true;
+    }else{
+      setStreetError("");
     }
     if((district==="")||(districtRegex.test(district)===false)){
       setDistrictError("Min 2 & max 50 characters, no special characters");
       var districtError = true;
+    }else{
+      setDistrictError("");
     }
     if((state==="")||(stateRegex.test(state)===false)){
       setStateError("Min 2 & max 50 characters, no special characters");
       var stateError = true;
+    }else{
+      setStateError("");
     }
     if((pin==="")||(pinRegex.test(pin)===false)){
       setPinError("PIN should be 6 digits");
       var pinError = true;
+    }else{
+      setPinError("");
     }
     if((contact==="")||(contactRegex.test(contact)===false)){
       setContactError("Contact number should be 10 digits");
       var contactError = true;
+    }else{
+      setContactError("");
     }
     if(nameError===true || houseError===true || streetError===true || districtError===true
       || stateError===true || pinError===true || contactError===true || cartItems.length===0){
@@ -151,6 +180,8 @@ emailjs.sendForm('gmail', 'template_ukpeseu', e.target, 'user_lvSOpwAVNl2TxWILVW
             billNumber
           })
 
+          localStorage.setItem("cart",JSON.stringify([]))
+          localStorage.setItem("total",JSON.stringify(null))
           history.push("/")
           window.location.reload()
       },
@@ -168,9 +199,9 @@ emailjs.sendForm('gmail', 'template_ukpeseu', e.target, 'user_lvSOpwAVNl2TxWILVW
     return (
         <div>
         {user ? <div className="centerDiv2">
-          {cartItems.length===0?<span className="errorSpan"><strong>Error! cart is empty.
+        {cartItems.length===0?<span className="errorSpan"><strong>Error! cart is empty.
              Add items to cart and try again.</strong></span>:""}
-             <br/>
+             <br/><br/>
              <form onSubmit={handleOrder} >
               <label htmlFor="fname">Name</label>
               <br />
@@ -183,7 +214,6 @@ emailjs.sendForm('gmail', 'template_ukpeseu', e.target, 'user_lvSOpwAVNl2TxWILVW
                 }}
                 id="fname"
                 name="Name"
-                required
               />
               <br /> 
               {option ? "" : <span className="errorSpan">{nameError}</span>}
@@ -254,7 +284,7 @@ emailjs.sendForm('gmail', 'template_ukpeseu', e.target, 'user_lvSOpwAVNl2TxWILVW
               {option?<span className="loadingSpan"> <strong>{valid2}</strong> </span>
               :<span className="errorSpan">{valid}</span> }
               <span className="errorSpan">{error}</span>            
-              </div> : <div className="userSpanLogin">
+              </div> : <div className="userSpanLogins">
               <br/><br/><br/><br/><br/>
               <span><strong>Please Login first</strong></span>
               </div>}

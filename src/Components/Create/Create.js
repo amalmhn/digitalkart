@@ -47,30 +47,44 @@ function Create() {
     if((name==="")||(nameRegex.test(name)===false)){
       setNameError("Min 2 & max 30 characters without special characters")
       var nameError1 = true;
+    }else{
+      setNameError("")
     }
     if((price==="")||(priceRegex.test(price)===false)){
       setPriceError("Min 2 & max 10 digits without spaces")
       var priceError1 = true;
+    }else{
+      setPriceError("")
     }
     if((ram==="")||(ramRegex.test(ram)===false)){
       setRamError("Min 2 & max 20 characters, Only alphabets")
       var ramError1 = true;
+    }else{
+      setRamError("")
     }
     if((memory==="")||(memoryRegex.test(memory)===false)){
       setMemoryError("Memory must be min 2 & max 10 characters")
       var memoryError1 = true;
+    }else{
+      setMemoryError("")
     }
     if((brand==="")||(brandRegex.test(brand)===false)){
       setBrandError("Min 2 & max 20 characters without spaces")
       var brandError1 = true;
+    }else{
+      setBrandError("")
     }
     if((description==="")||(descriptionRegex.test(description)===false)){
       setDescriptionError("Description must be min 2 & max 250 characters")
       var descError1 = true;
+    }else{
+      setDescriptionError("")
     }
     if(image===null){
       setImageError("Image field should not be empty")
       var imgError1 = true;
+    }else{
+      setImageError("")
     }
     if(nameError1===true || priceError1===true || ramError1===true || memoryError1===true || brandError1===true || descError1===true || imgError1 === true){
       setValid("Invalid Details!")
