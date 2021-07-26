@@ -28,7 +28,7 @@ function Banner() {
             </Link>
             {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <button onClick={()=>{
               history.push("/admin")
-            }} className="btn btn-primary adminBtn">Admin Page</button> : ""}
+            }} className="btn btn-primary adminBtn">Admin Panel</button> : ""}
           </div>
         </div>
         <div className="banner">

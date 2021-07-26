@@ -89,8 +89,11 @@ function Cart() {
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td><strong>&#x20B9;{itemsPrice}</strong></td>
-                    </tr>
+                    <td></td>
+                    <td></td>
+                </tr>
                 </tfoot>
                 </table>
                 }

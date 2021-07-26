@@ -30,7 +30,6 @@ function Login() {
     }
     if(error===true){
       setValid("Invalid Details!")
-      // setInterval(function(){ window.location.reload() }, 3000);
     }else{
       setOption(true);
       setValid2("Logging in, please wait...")

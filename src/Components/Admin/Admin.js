@@ -100,7 +100,7 @@ function Admin() {
             {user && user.uid==="SjE0GeIdoUbvMpTV9PE5ugHqyaH3" ? <div className="container">
             {user && <div className="buttons">
                 <div className="row">
-                    <div onClick={handleProduct} className="col-md-2 btn btn-primary myAdminBtn">Post Details</div>
+                    <div onClick={handleProduct} className="col-md-2 btn btn-primary myAdminBtn">Product Details</div>
                     <div onClick={handleOrder} className="col-md-2 btn btn-secondary myAdminBtn">Order Details</div>
                     <div onClick={handleUser} className="col-md-2 btn btn-success myAdminBtn">User Details</div>
                     <div onClick={handlePayment} className="col-md-2 btn btn-dark myAdminBtn">Payment Details</div>

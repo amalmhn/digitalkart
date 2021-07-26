@@ -12,7 +12,6 @@ function Posts() {
   
   useEffect(() => {
     axios.get("https://firestore.googleapis.com/v1/projects/digitalkart-1785a/databases/(default)/documents/products/").then((res)=>{
-      // console.log(res.data.documents)
       const allPost= res.data.documents.map((product)=>{
         return{
           ...product,id:product.name.substr(66)

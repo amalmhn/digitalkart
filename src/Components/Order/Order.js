@@ -179,7 +179,6 @@ emailjs.sendForm('gmail', 'template_ukpeseu', e.target, 'user_lvSOpwAVNl2TxWILVW
             totalProducts:cartItems.length,
             billNumber
           })
-
           localStorage.setItem("cart",JSON.stringify([]))
           localStorage.setItem("total",JSON.stringify(null))
           history.push("/")
