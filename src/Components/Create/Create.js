@@ -75,7 +75,7 @@ function Create() {
       setBrandError("")
     }
     if((description==="")||(descriptionRegex.test(description)===false)){
-      setDescriptionError("Description must be min 2 & max 250 characters")
+      setDescriptionError("Min 2 & max 250, limited special characters($&+,:;=?@#|'<>.^*()%!-)")
       var descError1 = true;
     }else{
       setDescriptionError("")
